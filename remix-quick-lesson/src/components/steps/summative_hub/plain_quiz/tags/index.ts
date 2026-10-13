@@ -1,0 +1,1 @@
+export { LessonChunkBadge } from './LessonChunkBadge';

@@ -1,0 +1,1166 @@
+# Quick Lesson - Architectural Design Documentation
+
+This directory contains the modularized system design records for Quick Lesson, organized strictly by technical domain:
+
+- **[System Architecture & Storage Shield](./design/ARCHITECTURE.md)**
+  Overview of the UK Curriculum lesson planner, color palette (`#F8F6F0` / `#2D2A26`), and double-guard storage compaction rules.
+
+- **[Wizard Steps & File Registries](./design/WIZARD_STEPS.md)**
+  Detailed step workflows and component registries for Step 1 Ingestion, Step 2 Parameters, and Step 3 Chunks Workspace.
+
+- **[AI Pipelines & Prompt System](./design/AI_PIPELINES.md)**
+  Active Gemini models, server proxy endpoints (`/api/*`), prompt definitions, and contextual parameter weighting rules.
+
+## Animation Studio & Google Slides Motion Panel Registry
+- `src/features/step6/hooks/useMotionPlayback.ts`: Shared synchronized motion playback hook with live step counter and listener notifications (<70 lines).
+- `src/features/step6/components/canvas/motion/CanvasMotionPlaybackOverlay.tsx`: Interactive slide canvas playback overlay supporting transition visual overlays and click-to-advance (<50 lines).
+- `src/features/step6/components/canvas/CanvasElementsLayer.tsx`: Canvas elements layer with real-time motion step visibility and animation CSS classes (<55 lines).
+- `src/features/step6/components/toolbar/tabs/anim/motion/GoogleSlidesMotionPanel.tsx`: Google Slides Motion sidebar with yellow icon header, slide transitions, object animations list, and live Play/Stop control (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/motion/MotionSlideTransitionSection.tsx`: Google Slides slide transition section with caret toggle, dropdown, timing slider, and Apply to all slides button (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/motion/MotionObjectAnimationsSection.tsx`: Object animations list with + Add animation and gold Play/Stop action button (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/motion/MotionAnimationCardRow.tsx`: Collapsible animation card row with element thumbnail, caret, drag handle, and expanded fields (<55 lines).
+- `src/features/step6/components/toolbar/tabs/anim/motion/MotionAnimationExpandedFields.tsx`: Expanded animation configuration fields for effect, trigger, timing slider, and delete (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/motion/MiniTextThumbnail.tsx`: Authentic Google Slides micro-text thumbnail rendering first characters (<30 lines).
+- `src/features/step6/components/toolbar/tabs/anim/motion/motionRoleBadgeHelper.ts`: Element role badge detector categorising Title, Subtitle, Bullet, and Question (<20 lines).
+- `src/features/step6/components/toolbar/tabs/anim/motion/motionReorderHelper.ts`: Sequence reorder helper enabling moving animation items up and down (<35 lines).
+- `src/features/step6/components/canvas/GoogleSlidesInsertBar.tsx`: Top slide canvas action bar containing Add Logo, Classroom Timers, Page Animations launcher modal, and Present triggers (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/types.ts`: Core data structures including ElementTimelineEffect and animation card catalogs (<45 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/shelf/applyEffectHelper.ts`: Multi-effect timeline helper appending effects and syncing legacy meta properties (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineCompactEffectChip.tsx`: Ultra-compact sleek animation effect chip with trigger, duration, play, and remove actions (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineElementRow.tsx`: Multi-effect element timeline row with compact chips and instant add capabilities (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/scratch/ScratchStudioWorkspace.tsx`: Multi-element sequence workspace with multi-effect management (<90 lines).
+- `src/features/step6/utils/cataloguePreviewKeyframes.ts`: Live keyframe animation style generator for instant preview when clicking or hovering catalogue cards (<40 lines).
+- `src/features/step6/components/toolbar/tabs/anim/SlidePreviewHeader.tsx`: Clean test playback header with Show All and interactive sequence controls (<45 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/StudioModalBody.tsx`: Modular body for ElementAnimationStudioModal connecting preview, controls, and workspace (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/shelf/OverlayAddButton.tsx`: Dedicated tactile "+ Add to Timeline" button inside the floating Google Sheets timing popover (<30 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/shelf/GoogleSheetsTriggerItems.tsx`: Google Sheets style clean vertical option list for "On Click", "With Previous", and "After Previous" with active checkmarks (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/shelf/GoogleSheetsDurationSlider.tsx`: Clean Google Sheets style timing slider (0.3s to 5.0s) with live numeric duration and loop controls (<70 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/shelf/CardOverlayDropdown.tsx`: Absolute inset glassmorphic popover overlay directly framing each card with backdrop blur and Add to Timeline (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/AnimationEffectCard.tsx`: Standard catalogue card with instant motion preview on click, timing toggle, and clean overlay (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/AnimationCardGrid.tsx`: Catalogue grid wiring column-aware popover anchors without shifting card positions (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioControls.tsx`: Catalogue controls container displaying British standard labels "With Previous" and "After Previous" (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/timeline/timelineCycleHelpers.ts`: Pure cycling functions for triggers (On Click -> Together -> Succession) and speeds (0.4s -> 0.8s -> 1.4s -> 2.0s) (<55 lines).
+- `src/features/step6/components/toolbar/tabs/anim/timeline/TimelineTriggerCycleBadge.tsx`: Interactive micro-badge for 1-click trigger cycling (<40 lines).
+- `src/features/step6/components/toolbar/tabs/anim/timeline/TimelineSpeedCycleBadge.tsx`: Interactive micro-badge for 1-click duration cycling (<40 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineSlotItem.tsx`: Timeline slot with direct click-cycle badges and no intrusive popovers (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineSlotActions.tsx`: Reusable preview motion and delete actions for timeline slots (<45 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineElementRow.tsx`: Timeline row connecting slot items to state, with 1-click slot assignment (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/timeline/TimelineTrackRow.tsx`: Scrubber timeline bar with direct click-cycle badges (<95 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioTimelineCard.tsx`: Timeline track card with interactive cycle badges (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementAnimationLauncherCard.tsx`: Sidebar launcher card with direct click-cycle badges and no popovers (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/scratch/ScratchStudioWorkspace.tsx`: Multi-element sequence workspace with slot assignment support (<75 lines).
+
+## Visual Attachment & Prompt Generator Registry
+- `src/lib/imageCompressor.ts`: Canvas compressor utility for 80x80 JPEG microThumbnails (<5KB).
+- `src/components/steps/AddVisualResourceModal.tsx`: Lightweight modal shell hosting a 2-Tab navigation bar ("Quick Search & Upload" vs "AI Prompt Lab") and active thumbnail strip (<90 lines).
+- `src/components/steps/visual_modal/tabs/IngestAndSearchTab.tsx`: Tab 1 combining drag-and-drop file ingestion and style preset search (<20 lines).
+- `src/components/steps/visual_modal/tabs/PromptLabTab.tsx`: Tab 2 housing the file upload zone and zero-cost client-side prompt builder (<20 lines).
+- `src/components/steps/visual_modal/presetData.ts`: 8 style presets definitions and prompt builder dropdown options.
+- `src/components/steps/visual_modal/UploadZone.tsx`: Drag & drop, file upload, and clipboard paste (Ctrl+V) handler with instant microThumbnail generation.
+- `src/components/steps/visual_modal/StylePresetGrid.tsx`: 8 style preset selector cards and quick web search triggers for images and animated GIFs.
+- `src/components/steps/visual_modal/PromptDropdowns.tsx`: Interactive prompt parameters (Subject, Style, Action, Lighting, Mood, Palette, Composition, Technical, 5-stage slider, Theme toggle, Negative prompts, Randomizer).
+- `src/components/steps/visual_modal/PromptPreviewLaunchers.tsx`: Read-only prompt preview box with Copy Prompt and generator launcher links.
+- `src/components/steps/visual_modal/PromptBuilder.tsx`: Zero-cost client-side prompt builder module.
+- `src/components/steps/visual_modal/VisualModalTabBar.tsx`: Tactile segmented pill tab navigation rail with clear click affordances, active pill indicators, and hover feedback.
+- `src/components/steps/toolbelt/AttachmentGallery.tsx`: Visual preview gallery displaying attached classroom diagrams with thumbnails and remove actions directly beneath the toolbelt buttons.
+
+## Video Resource & AI Scene Generator Registry
+- `src/components/steps/video_modal/presetData.ts`: 6 pop-culture categories, 8 video archetypes, AI video platform launcher configurations, and fallback data.
+- `src/components/steps/video_modal/ghostCapture.ts`: Offscreen canvas ghost player generating <5KB JPEG microThumbnails at 1.0s.
+- `src/components/steps/video_modal/VideoDropArea.tsx`: Drag & drop or click-to-upload area with instant offscreen ghost-thumbnail generation.
+- `src/components/steps/video_modal/VideoUrlAndTitleInputs.tsx`: Video title and stream URL inputs with automatic title metadata fetching on blur.
+- `src/components/steps/video_modal/VideoUploadZone.tsx`: Integrated video resource section containing dropzone, title & URL inputs, and "Attach Video" trigger.
+- `src/components/steps/video_modal/tabs/QuickSearchAndDetailsTab.tsx`: Tab featuring top upload zone, Search Video archetype pills, and AI Suggested Videos generator.
+- `src/components/steps/video_modal/tabs/VideoAiLabTabContainer.tsx`: Tab featuring top upload zone and the client-side AI Video Lab prompt compiler.
+- `src/components/steps/video_modal/tabs/VideoSearchTab.tsx`: 8 video archetype selector pills and smart educational query builder with YouTube launcher (< 3 minute duration filter).
+- `src/components/steps/video_modal/tabs/PopCultureRecommendationsTab.tsx`: 6 pop-culture category filters with 2x4 responsive results grid, `/api/generate-media-scenes` integration, and fallback engine.
+- `src/components/steps/video_modal/PopCultureSceneCard.tsx`: Individual pop-culture recommendation card with inline YouTube player, mqdefault thumbnail, tone badges, pause cue, `whyItWorks` rationale, and apply button.
+- `src/components/steps/video_modal/tabs/AiVideoLabTab.tsx`: Client-side prompt compiler with cinematography styles, camera motions, and absurdity slider.
+- `src/components/steps/video_modal/AiVideoPlatformLaunchers.tsx`: AI video generator launcher cards with explicit free-tier notes (100% free, 3/day, 6/day, etc.) and direct web links.
+- `src/components/steps/video_modal/VideoModalTabBar.tsx`: 2-tab segmented navigation rail matching VisualModalTabBar with active tab badges and tactile buttons.
+- `src/components/steps/AddVideoResourceModal.tsx`: Top-level modal container matching the exact layout, dimensions, header, attached strip, and footer of AddVisualResourceModal.
+
+## Link & Turnkey Payload Studio Registry
+- `src/components/steps/AddQuizResourceModal.tsx`: Main modal shell with 3-tab navigation rail ("Link Setup & Scannable QR", "Concept Breakdown Tools", and "Turnkey AI Payloads"), attached items tray, and "Done" dismissal.
+- `src/components/steps/link_modal/tabs/ConceptBreakdownModalTab.tsx`: Concept Breakdown & Pedagogical Bridges tab housing the Metaphor Bridge card for the active milestone.
+- `src/components/steps/link_modal/LinkDetailsForm.tsx`: Link URL, Title, Scannable QR choice, and What/Why prompt form with auto-metadata title fetching and Google sharing conversion.
+- `src/components/steps/link_modal/designer_qr/types.ts`: TypeScript configurations for Designer QR palette swatches, dot shapes, custom icon base64, and emoji overlays.
+- `src/components/steps/link_modal/designer_qr/qrCanvasRenderer.ts`: Zero-storage HTML5 Canvas QR rendering engine with high error correction, custom dot geometry, and custom image/emoji centre badge stamps.
+- `src/components/steps/link_modal/designer_qr/DesignerQrCanvas.tsx`: Real-time reactive HTML5 Canvas component with live preview and test link actions.
+- `src/components/steps/link_modal/designer_qr/colorExtractor.ts`: Client-side pixel sampling and high-contrast color extractor deriving dominant darkest/lightest contrast tones from centre icons and emojis.
+- `src/components/steps/link_modal/designer_qr/QrContrastMeter.tsx`: Speedometer dial gauge and mathematical contrast ratio analyser with real-time low-contrast camera warnings.
+- `src/components/steps/link_modal/designer_qr/QrStyleControls.tsx`: Mini edit panel for background colour, pattern colour, 'Match Icon' auto-palette extractor, dot shape, and centre icon badge.
+- `src/components/steps/link_modal/designer_qr/CentreIconSelector.tsx`: Upload custom icon launcher, emoji palette selector, and active icon badge manager.
+- `src/components/steps/link_modal/designer_qr/cropper/cropUtils.ts`: Mathematical coordinate transformer and circular WebP/PNG micro-thumbnail compressor (<3KB).
+- `src/components/steps/link_modal/designer_qr/cropper/CropViewport.tsx`: Touch/mouse draggable viewport with circular mask cut-out overlay.
+- `src/components/steps/link_modal/designer_qr/cropper/CircularCropModal.tsx`: Avatar / profile picture circular cropper dialog with scale slider and live circular preview.
+- `src/components/steps/link_modal/designer_qr/LinkQrDesignerSection.tsx`: Integrated QR studio card containing the "Create and add QR Code" pill button and side-by-side live canvas and controls; defaults to closed/disabled so QR codes are only generated when explicitly opted into.
+- `src/components/steps/link_modal/components/GoogleSharingModeToggle.tsx`: Touch-friendly segmented sharing mode converter for standard /edit, force /copy, and /template/preview modes with explanatory tooltip.
+- `src/components/steps/link_modal/components/AttachedResourcesTray.tsx`: Attached resources tray showing badges with platform icons and 1-click removal.
+- `src/components/steps/link_modal/tabs/PayloadGeneratorTab.tsx`: Wrapper mounting PayloadTabContainer for seamless modal tab integration.
+- `src/components/steps/link_modal/tabs/payload/types.ts`: TypeScript contracts for quiz questions and question mix types.
+- `src/components/steps/link_modal/tabs/payload/PayloadControls.tsx`: Question count slider (3-10), segmented mix toggle, and custom focus input (<80 lines).
+- `src/components/steps/link_modal/tabs/payload/PayloadReviewCards.tsx`: Interactive editable cards for reviewing questions, options, and explanations (<90 lines).
+- `src/components/steps/link_modal/tabs/payload/PayloadExportActions.tsx`: Export triggers for direct Google Drive Form creation and 30s Kahoot CSV (<80 lines).
+- `src/components/steps/link_modal/tabs/payload/PayloadTabContainer.tsx`: State orchestrator coordinating AI generation, Drive export, and lightweight storage (<95 lines).
+- `server/googleDriveHelper.ts`: Drive folder utility strictly enforcing `trashed = false` for "Quick Lesson" folder resolution (<90 lines).
+- `server/server.ts`: Express router handling POST `/api/export-to-google-drive` using active OAuth credentials (<95 lines).
+
+## Google Workspace Integration Registry
+- `src/types/workspace.ts`: Core interfaces for Google User, Classroom courses, Drive files, and Picker selections.
+- `src/services/google/googleAuth.ts`: Google OAuth authentication state manager, Firebase token acquirer, and in-memory token cache.
+- `src/services/google/googlePickerService.ts`: Google Picker API initializer and document selection listener.
+- `src/services/google/googleDriveService.ts`: Google Drive file listing and lesson backup archive service.
+- `src/services/google/googleDocsService.ts`: Google Docs structured lesson plan export with UK curriculum parameters.
+- `src/services/google/googleSlidesService.ts`: Google Slides presentation generator with teaching chunk cards and tasks.
+- `src/services/google/googleSheetsService.ts`: Google Sheets progression rubric and assessment criteria exporter.
+- `src/services/google/googleFormsService.ts`: Google Forms formative assessment quiz builder.
+- `src/services/google/googleClassroomService.ts`: Google Classroom course listing and assignment poster.
+- `src/services/google/gmailService.ts`: Gmail lesson overview email sender and draft composer.
+- `src/components/google_workspace/GoogleSignInButton.tsx`: Official styled Google sign-in button.
+- `src/components/google_workspace/GoogleAccountBadge.tsx`: Connected teacher badge with avatar, name, and Workspace Hub trigger.
+- `src/components/google_workspace/GooglePickerButton.tsx`: Tactile button to open Google Picker file selector.
+- `src/components/google_workspace/WorkspaceConfirmDialog.tsx`: Explicit confirmation modal protecting against unintended mutations.
+- `src/components/google_workspace/WorkspaceClassroomCard.tsx`: Google Classroom coursework publisher card.
+- `src/components/google_workspace/WorkspaceDocsExportCard.tsx`: Google Docs & Slides 1-click export card.
+- `src/components/google_workspace/WorkspaceSheetsFormsCard.tsx`: Google Sheets & Forms rubric and quiz card.
+- `src/components/google_workspace/WorkspaceGmailCard.tsx`: Gmail communication and draft composer card.
+- `src/components/google_workspace/WorkspaceDriveFilesCard.tsx`: Google Drive storage and file selection card.
+- `src/components/google_workspace/GoogleWorkspaceHubModal.tsx`: Comprehensive Classroom Materials Hub dialog with 5-error circuit breaker.
+- `src/components/layout/WizardHeader.tsx`: Modular application header hosting Google Workspace status and navigation actions.
+- `src/components/layout/HeaderActionButtons.tsx`: Compact subcomponent organizing header actions and authentication badge.
+- `src/utils/useAppLessonLogic.ts`: Extracted application state hook ensuring sub-100 line architectural hygiene.
+
+## Step 3 Chunks Registry
+- `src/components/step3_chunks/Step3Workspace.tsx`: Top-level workspace shell managing active chunk state, timeline progression, and modal activations.
+- `src/components/step3_chunks/Step3ResourceModals.tsx`: Modular dialog wrapper encapsulating visual, video, and quiz resource attachment modal windows.
+- `src/components/step3_chunks/ChunksTimeline.tsx`: Core milestones storyboard editor with card movement, split, merge, delete, and companion Classroom Task slate.
+- `src/components/step3_chunks/TimelineMergeOverlay.tsx`: Organic step division split and liquid mercury droplet merging metaball simulation during timeline manipulations (<50 lines).
+- `src/components/step3_chunks/TeachingChunkCard.tsx`: Dedicated teaching slide editor for title, vocabulary tags, teacher script, theory bullets, and examples/demonstrations.
+- `src/components/step3_chunks/components/ExamplesDemonstrationEditor.tsx`: Sub-100 line modular editor for concept examples and demonstrations featuring single-click AI regeneration and word-count target monitoring.
+- `src/components/step3_chunks/components/MetaphorCompareCard.tsx`: Analogy generator card with sample metaphor viewer and AI comparison popup dialog trigger.
+
+## Step 5 Diagnostic Discussion Starters Registry
+- `src/features/step5/components/StarterPoolColumn.tsx`: Card pool viewer with category filter badges counting active questions and card grid (<100 lines).
+- `src/features/step5/components/FormatFilterPills.tsx`: Category selector pills with subtle Refresh Category action for single-format generation (<60 lines).
+- `src/features/step5/components/AutoSuggestButton.tsx`: Top action button that triggers pedagogical auto-selection across all chunks (<25 lines).
+- `src/features/step5/components/BottomAddCustomCardButton.tsx`: Full-width dashed action button positioned under the pool grid (<35 lines).
+- `src/features/step5/services/autoSuggestEngine.ts`: Master-teacher auto-selection engine allocating 2 diagnostic sparks per chunk with 40% True/False and 60% dynamic formats (<75 lines).
+- `src/features/step5/hooks/useStep5Starters.ts`: Dedicated hook managing per-chunk starter pools, session caching, and category-level generation (<95 lines).
+- `src/features/step5/services/extractStartersFromChunks.ts`: Central Vault extractor pulling starterPool and discussionStarters directly from lesson chunks (<45 lines).
+- `src/features/step5/services/syncStartersToChunks.ts`: Step-transition auto-sync engine with Pre/Post-Condition verification locking cards directly into lesson chunks with zero word loss (<65 lines).
+- `src/features/step5/components/Step5FooterNav.tsx`: Footer navigation bar with "Save & Continue" button and visual lock indicators (<40 lines).
+- `src/features/step5/components/Step5Container.tsx`: Clean orchestrator component with stepper, header, chunk navigation, pool, and safe step-transition locking (<98 lines).
+- `src/utils/storage.ts`: Automatic step key normaliser redirecting any legacy `hook_vocab` keys immediately to `discussion_starters` (<80 lines).
+- `src/utils/useAppLessonLogic.ts`: Active navigation guard intercepting and sanitising any `hook_vocab` navigation requests to `discussion_starters` (<98 lines).
+- `src/features/step5/components/cards/StarterConceptCard.tsx`: Individual prompt card with True/False color styling and auto-expanding prompt input (<98 lines).
+- `src/features/step5/services/starterGeneratorService.ts`: Discussion starter generator client service with comprehensive 7-format fallbacks (<90 lines).
+- `src/server/discussionStartersHandler.ts`: Backend Gemini proxy endpoint `/api/generate-discussion-starters` with strict Negative Rules prohibiting truncated clauses or word loss (<60 lines).
+- `src/server/startersFallbackBatch1.ts`: High-impact master-teacher fallbacks for True/False, Forced Dichotomy, and Paradox (<90 lines).
+- `src/server/startersFallbackBatch2.ts`: High-impact master-teacher fallbacks for Would You Rather, Predict Disaster, Finger Scale (1-10), and Socratic Tension (<95 lines).
+
+## Printable Differentiated Handouts Registry
+- `src/components/steps/Step9DifferentiatorHandouts.tsx`: Student handout print layout containing core chunk progression, UDL pathway tags, and linked digital media.
+- `src/components/steps/handouts/HandoutQrResourceItem.tsx`: High-resolution 100x100px scannable QR code generator and italicised Checking-for-Understanding (CFU) prompt renderer.
+
+## Method of Loci Memory Palace Generator Registry
+- `src/components/steps/link_modal/tabs/LociGeneratorTab.tsx`: Tab exporter mounting Loci Generator sub-tab (<10 lines).
+- `src/components/steps/link_modal/tabs/loci/types.ts`: TypeScript contracts for 3-step wizard, dual coding options, and recall script (<40 lines).
+- `src/components/steps/link_modal/tabs/loci/constants.ts`: Built-in physical route presets ("Science Wing", "Sports Pitch", "5-Room House", "School Main Entrance") (<45 lines).
+- `src/components/steps/link_modal/tabs/loci/lociVaultStorage.ts`: Lightweight localStorage vault for tracking used room routes (<30 lines).
+- `src/components/steps/link_modal/tabs/loci/LociWordSelector.tsx`: Keyword ingestion supporting active chunk pull, manual tags, and AI keywords in 12-15 item batches (<95 lines).
+- `src/components/steps/link_modal/tabs/loci/LociLinearTermsList.tsx`: Re-orderable numbered linear sequence list (1., 2., 3.) with up/down controls and inline editing (<85 lines).
+- `src/components/steps/link_modal/tabs/loci/LociRouteNameInput.tsx`: Route name input with updated presets, Previously Used trigger, and dynamic suggestions (<90 lines).
+- `src/components/steps/link_modal/tabs/loci/LociPreviousRoutesModal.tsx`: Modal popup displaying saved previous routes library with empty-state teacher guidance (<85 lines).
+- `src/components/steps/link_modal/tabs/loci/LociRouteChainVisualizer.tsx`: Always-visible horizontal breadcrumb sequence chain (<45 lines).
+- `src/components/steps/link_modal/tabs/loci/LociTripletVaultGuard.tsx`: 3-station sequence overlap detector protecting cognitive retention (<35 lines).
+- `src/components/steps/link_modal/tabs/loci/LociAssociationsList.tsx`: Scrollable list container for station association items (<30 lines).
+- `src/components/steps/link_modal/tabs/loci/LociStationPickerRow.tsx`: Single minimalist combobox input with floating light-mode dropdown suggestions and custom location typing (<90 lines).
+- `src/components/steps/link_modal/tabs/loci/LociAssociationItemCard.tsx`: Station card with station dropdown/custom input picker, 1-click reordering, and sensory anchor badges (<75 lines).
+- `src/components/steps/link_modal/tabs/loci/LociRouteAndImageMapper.tsx`: Orchestrator for route naming, triplet guard, and strict location validation (<95 lines).
+- `src/components/steps/link_modal/tabs/loci/lociApiHelpers.ts`: Async client helpers for Loci API calls (<40 lines).
+- `src/components/steps/link_modal/tabs/loci/LociReviewEnding.tsx`: Peer-teaching hand-off prompt and spaced retrieval schedule (<35 lines).
+- `src/components/steps/link_modal/tabs/loci/LociFlashcardsView.tsx`: Printable double-sided flashcard cut-sheet with front/back exact grid alignment (<45 lines).
+- `src/components/steps/link_modal/tabs/loci/LociScriptAndFlashcards.tsx`: 2-step walkthrough story display with active recall checks and duplicated action toolbars (<98 lines).
+- `src/components/steps/link_modal/tabs/loci/LociActionButtons.tsx`: Duplicated top and bottom action button toolbar providing Print dropdown (Journey vs Cards), Add Link, and Attach actions (<94 lines).
+- `src/components/steps/link_modal/tabs/loci/LociRhythmCuesToggle.tsx`: Modular toggle control for classroom delivery pause markers (<22 lines).
+- `src/components/steps/link_modal/tabs/loci/LociRecallQuestionsList.tsx`: Sub-component listing active recall prompt options (<45 lines).
+- `src/components/steps/link_modal/tabs/loci/useLociWizardState.ts`: Isolated session-persistent state hook maintaining Loci drafts (<88 lines).
+- `src/components/steps/link_modal/tabs/loci/LociWizardHeader.tsx`: Segmented step tracker header (<34 lines).
+- `src/components/steps/link_modal/tabs/loci/lociPrinter.ts`: Dedicated iframe printer for formatted Journey Script and double-sided cut-sheet flashcards (<99 lines).
+- `src/components/steps/link_modal/tabs/loci/lociDocExporter.ts`: HTML / Word-compatible document data exporter for Journey walkthrough and printable cards (<68 lines).
+- `src/components/steps/link_modal/tabs/loci/LociExportDocModal.tsx`: Export document modal offering choice between Journey Script and Flashcards, with direct attach or QR Studio route (<79 lines).
+- `src/components/steps/link_modal/LociExitWarningModal.tsx`: Warning dialog intercepting premature dismissal before attaching (<42 lines).
+- `src/components/steps/link_modal/QuizModalTabsBar.tsx`: Modular horizontal tab navigator (<18 lines).
+- `src/components/steps/link_modal/QuizModalFooter.tsx`: Educational guidance footer with contextual Done button (<40 lines).
+- `src/components/steps/link_modal/tabs/loci/LociGeneratorTab.tsx`: 3-step wizard container pinning the Route Chain directly below the tab menu as a sticky bar (<79 lines).
+- `src/components/steps/link_modal/tabs/loci/themedPresets.ts`: Themed environment route presets (School Grounds, Classroom, House, Playground, Space Station, Aquarium, City Street, Sports Gym, History) (<90 lines).
+- `src/components/steps/link_modal/tabs/loci/constants.ts`: Complete preset library combining 3 Spatial Archetypes and 9 Themed Route Presets (<40 lines).
+- `src/server/lociHandler.ts`: Backend routes for `/api/generate-loci-keywords`, `/api/generate-loci-stations` with strict Method of Loci spatial architectural anchor directives, `/api/generate-loci-associations`, and `/api/generate-loci-script` (<100 lines).
+- `src/components/steps/toolbelt/AttachmentQrThumbnail.tsx`: Interactive, responsive canvas thumbnail rendering the teacher's custom designer QR code (<45 lines).
+- `src/components/steps/toolbelt/AttachmentQrModal.tsx`: Classroom projector modal displaying the high-resolution scannable QR code and mobile scanning instructions (<60 lines).
+- `src/components/steps/toolbelt/AttachmentItemCard.tsx`: Attachment card component integrating custom QR code canvases, scannable QR badges, projector launch modal, and external link utilities (<80 lines).
+- `src/components/steps/toolbelt/AttachmentGallery.tsx`: Streamlined classroom visuals and digital media gallery rendering full custom designer QR codes for attached links (<35 lines).
+
+## Limerick & Rhyming Verse Maker Registry
+- `src/components/steps/link_modal/tabs/limerick/types.ts`: TypeScript contracts for LimerickItem, PoetryStyle, and LimerickFormState (<35 lines).
+- `src/components/steps/link_modal/tabs/limerick/LimerickForm.tsx`: Setup form with core concept input, takeaway goal chips, mnemonic acronym, and 4-way poetry style selector (<65 lines).
+- `src/components/steps/link_modal/tabs/limerick/LimerickCard.tsx`: Individual verse card with blank-out recall mode toggle and attach triggers (<70 lines).
+- `src/components/steps/link_modal/tabs/limerick/LimerickGrid.tsx`: Balanced 2x2 grid displaying 4 generated verses with bulk attachment action (<45 lines).
+- `src/components/steps/link_modal/tabs/limerick/limerickGenerator.ts`: Client API service calling `/api/generate-limerick` with local fallback rhyming templates (<55 lines).
+- `src/components/steps/link_modal/tabs/limerick/LimerickWhiteboardSyncBadge.tsx`: Interactive whiteboard sync badge broadcasting rhyming verse decks to Step 3 cards and Step 10 presentation mode (<70 lines).
+- `src/components/steps/link_modal/tabs/limerick/LimerickTabContainer.tsx`: Wizard container orchestrating setup form, API verse generation, whiteboard sync badge, and grid studio (<75 lines).
+- `src/components/steps/link_modal/tabs/LimerickTab.tsx`: Barrel exporter for modal sub-tab mounting (<5 lines).
+- `src/components/steps/link_modal/QuizModalTabsBar.tsx`: Optimized horizontal tab bar with 9px-10px font sizing and compact padding fitting all 6 tabs perfectly (<25 lines).
+- `src/server/limerickHandler.ts`: Express POST endpoint for `/api/generate-limerick` integrating Gemini AI verse generation (<85 lines).
+
+## Word Breakdown & Visual Puzzle Studio Registry
+- `src/components/steps/link_modal/tabs/word_breakdown/types.ts`: TypeScript contracts for word breakdown items, morphemes, clue types, and wizard steps (<45 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/rebusDictionary.ts`: Extensive phonetic syllable and conceptual meaning dictionary mapping academic stems to accurate emoji pairs (<85 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/rebusGenerator.ts`: Syllable Sound Deconstructor and dual-mode rebus resolver (<45 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/morphologyHelper.ts`: Curriculum vocabulary extractor pulling academic Tier-2/Tier-3 terms directly from concept card title, script, and notes, Greek/Latin roots, and dual-mode rebus mapping (<90 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/WordIngestionRow.tsx`: Individual curriculum term row displaying phonetic pronunciation and morpheme pills (<60 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/WordBreakdownIngestion.tsx`: Concept-targeted vocabulary ingestion screen with Auto-Analyse Concept trigger, custom keyword entry, and Greek/Latin root morphology (<80 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/LetterSlots.tsx`: Interactive letter slot boxes rendering revealed or concealed characters (<45 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/WordPuzzleCard.tsx`: Individual puzzle card with 3-way clue toggle (Rebus, Visual Image, Riddle), inline Sound-Alike vs Concept Story switcher, Nano Banana generator, and reveal control (<95 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/NanoBananaImageGenerator.tsx`: 1-tap AI visual puzzle image generator button and preview thumbnail (<75 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/WhiteboardSyncBadge.tsx`: Interactive toggle button syncing puzzle deck to Step 3 cards and Step 10 whiteboard launchpad (<70 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/WordPuzzleStudio.tsx`: Classroom puzzle grid with live reveal/conceal controls, whiteboard sync badge, and lesson attachment action (<95 lines).
+- `src/components/steps/link_modal/tabs/word_breakdown/WordBreakdownTabContainer.tsx`: 2-step wizard container orchestrating concept-based vocabulary analysis, term ingestion, image generation, and visual puzzle studio (<90 lines).
+- `src/components/steps/link_modal/tabs/WordBreakdownTab.tsx`: Barrel exporter for modal sub-tab mounting (<5 lines).
+- `src/server/bananaImageService.ts`: Dedicated Nano Banana visual clue artwork generation utilizing Gemini image models and bespoke visual puzzle illustrations (<40 lines).
+- `src/server/wordBreakdownHandler.ts`: Express POST handlers for `/api/generate-word-breakdown` (dynamic concept card linguistic analysis) and `/api/generate-nano-banana-puzzle` using Gemini Nano Banana and visual clue generator (<80 lines).
+
+## Acronym Maker Studio Registry
+- `src/components/steps/link_modal/tabs/acronym/types.ts`: TypeScript contracts for acronym items, letter breakdowns, workflow options, and form state (<30 lines).
+- `src/components/steps/link_modal/tabs/acronym/acronymGenerator.ts`: Async client service posting to `/api/generate-acronym` with resilient educational fallback generator (<75 lines).
+- `src/components/steps/link_modal/tabs/acronym/ProcessFinderCard.tsx`: Concept/script workflow finder with 4 AI suggested processes and custom procedure input (<80 lines).
+- `src/components/steps/link_modal/tabs/acronym/AcronymOptionCard.tsx`: Acronym preview card with expandable letter breakdown, inline term editor, and "Send to Rhyme & Limerick" action (<95 lines).
+- `src/components/steps/link_modal/tabs/acronym/AcronymTabContainer.tsx`: 2-step wizard container managing process selection, generation, preview, concept attachment, and Limerick handover (<95 lines).
+- `src/components/steps/link_modal/tabs/AcronymTab.tsx`: Barrel exporter for modal sub-tab mounting (<5 lines).
+- `src/components/steps/link_modal/ModalTabContent.tsx`: Extracted modal tab viewport manager supporting cross-tab prefilling and sub-100-line compliance (<55 lines).
+- `src/components/steps/link_modal/QuizModalTabsBar.tsx`: Two-line small pill button navigation bar preventing overflow (<65 lines).
+- `src/server/acronymHandler.ts`: Express POST endpoint for `/api/generate-acronym` calling Gemini AI to generate 4 pronounceable real-word educational acronyms (<80 lines).
+
+## Interactive Poll Studio Registry
+- `src/components/steps/link_modal/tabs/interactive_poll/types.ts`: TypeScript types for PollType enum, PollOption, PollItem, and PollFormState (<50 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/pollGenerator.ts`: Service integrating `/api/generate-lesson-section` (pivot_questions) with resilient fallbacks (<75 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/PollTypeSelector.tsx`: Pill button bar for selecting 7 poll formats (<60 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/PollOptionsEditor.tsx`: Sub-component managing dynamic response choices and image attachments (<90 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/PollTogglesBar.tsx`: Modular timer buttons and classroom engagement switches (<50 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/PollFormControls.tsx`: Question prompt and misconception explainer (<50 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/AiPollSuggestionsBar.tsx`: AI diagnostic questions bar with 1-click prompt adoption (<65 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/InteractivePollTabContainer.tsx`: Orchestrator linking state, AI suggestions, concept card attachment, and live presentation view (<100 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/index.ts`: Barrel export for poll module components (<10 lines).
+- `src/components/steps/link_modal/tabs/InteractivePollTab.tsx`: Top-level modal tab wrapper (<25 lines).
+
+## Interactive Poll Studio - Live Present Registry (Step 2)
+- `src/components/steps/link_modal/tabs/interactive_poll/live_present/typesLive.ts`: Interfaces for LivePollState, VoteCounts, and PollSaveAction (<25 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/live_present/LivePollChartCanvas.tsx`: Live voting bar chart, word cloud canvas, and countdown clock (<90 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/live_present/MisconceptionAndReflectionBanner.tsx`: Teacher misconception explainer and AI reflection guidance (<50 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/live_present/PollExportService.ts`: PNG export and slide archive services (<85 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/live_present/TeacherLivePollActions.tsx`: Action toolbar for simulation, export, archiving, and vote reset (<55 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/live_present/TeacherLivePollView.tsx`: Main live teacher board overlay with live chart, timer, reveal toggle, and controls (<90 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/live_present/index.ts`: Barrel exporter for live presentation sub-module (<10 lines).
+
+## Interactive Poll Studio - Student Mobile Response Experience (Step 3)
+- `src/components/steps/link_modal/tabs/interactive_poll/student_view/typesStudent.ts`: Type definitions for student responses, submission states, and renderer props (<45 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/student_view/StudentConfidenceSlider.tsx`: Star-based confidence gauge (<45 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/student_view/StudentTimerClock.tsx`: Pupil synchronized countdown timer with warning states (<55 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/student_view/StudentRankingRenderer.tsx`: Interactive ranking reorder controls with arrow-based sequencing (<65 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/student_view/StudentChoiceListRenderer.tsx`: Single/multi-choice and image selection response list (<55 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/student_view/StudentPollInputRenderers.tsx`: Multi-format input switcher supporting all 7 poll formats (<85 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/student_view/StudentSubmittedFeedback.tsx`: Submission confirmation feedback card with response revision option (<50 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/student_view/StudentPollViewContainer.tsx`: Mobile-first pupil response view with anonymous/name entry, timer, question rendering, and submission flow (<85 lines).
+- `src/components/steps/link_modal/tabs/interactive_poll/student_view/index.ts`: Barrel exporter for student response sub-module (<10 lines).
+
+## Step 4 Summative Assessment Hub Registry (Stage 1)
+- `src/components/steps/summative_hub/typesSummative.ts`: Interfaces for SummativeTaskChoice, AssessedCriteriaBadge, SummativeHubState, and tab keys (<35 lines).
+- `src/components/steps/summative_hub/SummativeHubTabBar.tsx`: Top tab navigation for 20-Min Performance Tasks, Escape Room, and Summative Quiz (<55 lines).
+- `src/components/steps/summative_hub/TaskCardBadges.tsx`: Assessed criteria code tags and concept chunk coverage pills (<50 lines).
+- `src/components/steps/summative_hub/PerformanceTaskCard.tsx`: Card for multimodal formats with radio selection, handout download, and Classroom export (<90 lines).
+- `src/components/steps/summative_hub/PerformanceTaskGridContainer.tsx`: 2x3 responsive grid and task regeneration controls (<60 lines).
+- `src/components/steps/summative_hub/Step4SummativeHeader.tsx`: Header banner showing course/vocational brief context and active assessment format (<35 lines).
+- `src/components/steps/summative_hub/Step4SummativeContainer.tsx`: Top-level Step 4 orchestrator linking tab bar, generator grid, and selection state (<95 lines).
+- `src/components/steps/summative_hub/summativeTaskGenerator.ts`: Task generation service calling `/api/generate-lesson-section` with brief deduplication and offline fallback (<80 lines).
+- `src/components/steps/summative_hub/summativeExportHelpers.ts`: Pupil markdown handout file generator and download utility (<35 lines).
+- `src/components/steps/summative_hub/index.ts`: Barrel export for the summative hub module (<15 lines).
+- `src/components/steps/Step4FormativeDiagnostics.tsx`: Step 4 route entry point mounting Step4SummativeContainer (<20 lines).
+- `src/server/summativeHandler.ts`: Server-side handler for multimodal performance tasks generation (<45 lines).
+- `src/components/steps/summative_hub/Step4SummativeFooter.tsx`: Navigation footer returning to Chunks Workspace (<20 lines).
+
+## Educational Escape Room Builder Registry (Stage 1)
+- `src/components/steps/summative_hub/escape_room/typesEscape.ts`: TypeScript interfaces for EscapeRoomConfig, PuzzleLock, ThemePreset, SabotageType, and CipherType (<35 lines).
+- `src/components/steps/summative_hub/escape_room/escapeDefaults.ts`: Subject/theme defaults with 4 non-numeric locks and Google Slides/QR planning metadata export (<55 lines).
+- `src/components/steps/summative_hub/escape_room/escapeThemeGenerator.ts`: AI fetch service for `/api/generate-lesson-section` with fallback (<35 lines).
+- `src/components/steps/summative_hub/escape_room/LockCipherSelector.tsx`: Non-numeric cipher config for Word, Keycard, Icon, and Pathway locks with number prevention (<85 lines).
+- `src/components/steps/summative_hub/escape_room/AntiCheatToolbar.tsx`: Toggle buttons for Tab-Focus, 20s Cooldown, and Jigsaw locks (<35 lines).
+- `src/components/steps/summative_hub/escape_room/EscapeRoomControls.tsx`: Theme presets, custom title, batch toggle, and AI synthesis button (<95 lines).
+- `src/components/steps/summative_hub/escape_room/PuzzleLockCard.tsx`: 4-lock editor card with clues, non-numeric ciphers, chunk linking, and sabotage hindrance effects (<95 lines).
+- `src/components/steps/summative_hub/escape_room/EscapeNarrativeBanner.tsx`: High-stakes narrative brief editor banner (<35 lines).
+- `src/components/steps/summative_hub/escape_room/EscapeActionToolbar.tsx`: Planning Mode actions: "Attach Escape Room to Lesson Plan" and "Preview Live Board" (<65 lines).
+- `src/components/steps/summative_hub/escape_room/EscapeAttachedBanner.tsx`: Attached to Lesson Plan green status badge and "Continue to Step 5" progression CTA (<25 lines).
+- `src/components/steps/summative_hub/escape_room/EscapeRoomBuilderContainer.tsx`: Main escape room builder orchestrating planning state, lock grid, and live preview (<90 lines).
+- `src/components/steps/summative_hub/escape_room/index.ts`: Barrel export for escape room module (<15 lines).
+- `src/server/escapeRoomHandler.ts`: Server-side AI prompt generator for escape room scenarios with strictly non-numeric puzzles (<50 lines).
+
+## Educational Escape Room Live Present Registry (Stage 2)
+- `src/components/steps/summative_hub/escape_room/live_present/typesLiveEscape.ts`: TypeScript interfaces for LiveEscapeRoomState, TeamProgress, SabotageEvent, and ActiveSabotageEffect (<40 lines).
+- `src/components/steps/summative_hub/escape_room/live_present/liveEscapeStateDefaults.ts`: Default active team progress states and initial simulated sabotage events (<30 lines).
+- `src/components/steps/summative_hub/escape_room/live_present/liveEscapeExportHelper.ts`: Markdown slide deck generator for post-mission teacher debriefing (<40 lines).
+- `src/components/steps/summative_hub/escape_room/live_present/LiveEscapeBoardHeader.tsx`: Master 15-minute countdown clock, team escape counter, pause/resume, and clue reveal toggles (<70 lines).
+- `src/components/steps/summative_hub/escape_room/live_present/LiveTeamLeaderboardGrid.tsx`: 2x2 responsive live team cards tracking 4 lock states, clues, and hindrance alerts (<90 lines).
+- `src/components/steps/summative_hub/escape_room/live_present/SabotageActivityFeed.tsx`: Real-time audit log of team Sabotage Shots and hindrance penalties (<70 lines).
+- `src/components/steps/summative_hub/escape_room/live_present/LiveEscapeTeacherToolbar.tsx`: Teacher progression controls for advancing team locks and exporting slides (<45 lines).
+- `src/components/steps/summative_hub/escape_room/live_present/LiveEscapeViewContainer.tsx`: Main teacher command board orchestrating header, grid, activity feed, and live timer (<95 lines).
+- `src/components/steps/summative_hub/escape_room/live_present/index.ts`: Barrel export for live_present module (<15 lines).
+
+## Classroom Imposter Registry (Chunk 1: Setup & Room Launcher)
+- `src/components/steps/summative_hub/imposter/types/imposterTypes.ts`: Data contracts for ImposterGameState, Player, ImposterRole, ImposterAttack, GhostBadge, and ImposterRoomConfig (<50 lines).
+- `src/components/steps/summative_hub/imposter/setup/ImposterConfigControls.tsx`: Form controls for imposter allocation (1-3), timer presets (30s/60s), and offline printable mode (<85 lines).
+- `src/components/steps/summative_hub/imposter/setup/RoomLauncherCard.tsx`: Room code display with regeneration, student QR code image, and Google Slides embed link generator (<85 lines).
+- `src/components/steps/summative_hub/imposter/setup/ImposterInlineSetupView.tsx`: Direct inline view embedding room launcher and configuration controls without popup modals (<95 lines).
+- `src/components/steps/summative_hub/imposter/setup/index.ts`: Barrel export for setup sub-components (<10 lines).
+- `src/components/steps/summative_hub/imposter/services/imposterApi.ts`: Client API service communicating with `/api/imposter/*` with graceful offline fallback (<50 lines).
+- `src/components/steps/summative_hub/imposter/ImposterActiveRoomBanner.tsx`: Active classroom lobby banner with room parameters (<50 lines).
+- `src/components/steps/summative_hub/imposter/ImposterHubContainer.tsx`: Top-level hub container directly rendering inline setup view or active lobby banner (<80 lines).
+- `server/imposterHandler.ts`: Express router for room creation (`/api/imposter/create-room`) and status querying (`/api/imposter/room-status`) (<80 lines).
+
+## Classroom Imposter Registry (Chunk 2: Teacher Display Board & Tie-Breaker Resolution)
+- `src/components/steps/summative_hub/imposter/teacher_display/MainBoardOverlay.tsx`: Main projector header with round timer, non-zero progress math, and active pupil counters (<85 lines).
+- `src/components/steps/summative_hub/imposter/teacher_display/AvatarGrid.tsx`: 2D plain avatar grid tracking alive status and ghost writer designations (<60 lines).
+- `src/components/steps/summative_hub/imposter/teacher_display/VotingTallyRow.tsx`: Individual pupil ballot tally card (<35 lines).
+- `src/components/steps/summative_hub/imposter/teacher_display/VotingTallyBoard.tsx`: Anonymous ballot result aggregation and tie-breaker initiation (<85 lines).
+- `src/components/steps/summative_hub/imposter/teacher_display/tieBreakerLogic.ts`: Exact tie-breaker algorithm enforcing odd/even imposter vote validity and split elimination (<45 lines).
+- `src/components/steps/summative_hub/imposter/teacher_display/TieBreakerResolution.tsx`: 2-player 1-word answer prompt modal with dynamic tie-breaker resolution (<98 lines).
+- `src/components/steps/summative_hub/imposter/teacher_display/ClassVictoryModal.tsx`: Celebration dialog when all imposters are unmasked (<80 lines).
+- `src/components/steps/summative_hub/imposter/teacher_display/GhostWriterFanfare.tsx`: Ghost Writing Master accolade screen for impactful ghost questions (>2 active non-imposters) (<70 lines).
+- `src/components/steps/summative_hub/imposter/teacher_display/TeacherLiveSessionContainer.tsx`: Fullscreen projector board orchestrator (<95 lines).
+- `src/components/steps/summative_hub/imposter/teacher_display/index.ts`: Barrel export for teacher_display module (<10 lines).
+
+## Classroom Imposter Registry (Chunk 3: Student View & Open Question Inputs)
+- `src/components/steps/summative_hub/imposter/student_view/AvatarCustomizerModal.tsx`: 60s timed countdown modal to choose 2D plain desk avatar (<90 lines).
+- `src/components/steps/summative_hub/imposter/student_view/SecretRoleCard.tsx`: Privacy card-flip concealing or revealing role; only shows vague topic clue to Imposters (<90 lines).
+- `src/components/steps/summative_hub/imposter/student_view/WifiRecoveryGuard.tsx`: 2-minute offline hold-state guard preventing abrupt forfeiture (<90 lines).
+- `src/components/steps/summative_hub/imposter/student_view/StudentHeaderBar.tsx`: Mobile header showing pupil identity and exit button (<30 lines).
+- `src/components/steps/summative_hub/imposter/student_view/QuestionRendererSwitch.tsx`: Dynamic switch delegating to specific open question input (<35 lines).
+- `src/components/steps/summative_hub/imposter/student_view/question_types/ComponentNameDropInput.tsx`: Sub-component name-drop input with forbidden word validation (<70 lines).
+- `src/components/steps/summative_hub/imposter/student_view/question_types/RealWorldAppInput.tsx`: Practical scenario / industry context input (<60 lines).
+- `src/components/steps/summative_hub/imposter/student_view/question_types/AnalogyLinkInput.tsx`: 1-word metaphor / analogy synthesiser input (<60 lines).
+- `src/components/steps/summative_hub/imposter/student_view/question_types/ActionVerbInput.tsx`: Active operational process verb input (<60 lines).
+- `src/components/steps/summative_hub/imposter/student_view/question_types/index.ts`: Barrel export for open question input types (<10 lines).
+- `src/components/steps/summative_hub/imposter/student_view/StudentViewContainer.tsx`: Mobile-first student inquiry workspace container (<80 lines).
+- `src/components/steps/summative_hub/imposter/student_view/index.ts`: Barrel export for student view module (<10 lines).
+- `src/components/steps/summative_hub/imposter/StudentPreviewModal.tsx`: Teacher preview modal to inspect mobile view with role swapping (<70 lines).
+
+## Classroom Imposter Registry (Chunk 4: Attack Charge Engine, Ghost Workshop & Analytics)
+- `src/components/steps/summative_hub/imposter/attacks/imposterAttacks.ts`: Attack definitions and safe charge engine with +50% Survival/Speedy bonuses and 4 covert attack keys (<60 lines).
+- `src/components/steps/summative_hub/imposter/attacks/AttackBarControls.tsx`: Energy gauge with bonus triggers and 100% ability deployment controls (<96 lines).
+- `src/components/steps/summative_hub/imposter/attacks/AttackExecutionSwitch.tsx`: Execution cards for Question Swap, Timed Panic, Vote Shadow, and Echo Prompt (<85 lines).
+- `src/components/steps/summative_hub/imposter/attacks/index.ts`: Barrel export for attacks module (<5 lines).
+- `src/components/steps/summative_hub/imposter/ghost/GhostWorkshopModal.tsx`: Eliminated pupil workspace for authoring convincing decoy curriculum inquiries (<96 lines).
+- `src/components/steps/summative_hub/imposter/ghost/GhostWriterBadgeCard.tsx`: Pupil accolade card tracking decoy questions authored and eliminations influenced (<60 lines).
+- `src/components/steps/summative_hub/imposter/ghost/index.ts`: Barrel export for ghost module (<5 lines).
+- `src/components/steps/summative_hub/imposter/analytics/ConceptMasteryMetrics.tsx`: Accuracy gauge with division-by-zero safeguards and curriculum misconception list (<75 lines).
+- `src/components/steps/summative_hub/imposter/analytics/ImposterSummaryReport.tsx`: End-of-game summary report aggregating class mastery, ghost contributors, and print export (<85 lines).
+- `src/components/steps/summative_hub/imposter/analytics/index.ts`: Barrel export for analytics module (<5 lines).
+- `src/components/steps/summative_hub/imposter/setup/ImposterSetupToolbar.tsx`: Bottom action toolbar matching quiz styles with Attach to Lesson Plan toggle, Preview Live Lobby, and Print cards (<60 lines).
+- `src/components/steps/summative_hub/imposter/ImposterAttachedBanner.tsx`: Lesson plan attachment confirmation banner with progression shortcut to Step 5 (<25 lines).
+- `src/components/steps/summative_hub/imposter/student_view/avatarPresets.ts`: 16 British wildlife & classroom character presets and 8 colour theme schemes (<50 lines).
+- `src/components/steps/summative_hub/imposter/student_view/AvatarColourPicker.tsx`: Pupil colour adjustment palette component with real-time swatch triggers (<50 lines).
+- `src/components/steps/summative_hub/imposter/student_view/AvatarSelectionGrid.tsx`: 16-avatar visual selector with responsive scroll and dynamic tinting (<50 lines).
+- `src/components/steps/summative_hub/imposter/student_view/StudentAnswerForm.tsx`: Dedicated form rendering inquiry prompt inputs and answer submission button (<50 lines).
+- `src/components/steps/summative_hub/imposter/services/context_extractor/extractChunkContext.ts`: Deep context extractor for teacher modeling scripts ("I Do"), active student tasks ("You Do"), and media CFU prompts (<45 lines).
+- `src/components/steps/summative_hub/imposter/services/context_extractor/extractVocabularyContext.ts`: Deep extractor for domain vocabulary, tags, analogies, retrieval cues, and primary concept terms (<45 lines).
+- `src/components/steps/summative_hub/imposter/services/context_extractor/extractDiagnosticContext.ts`: Extractor for real-world scenarios, formative traps, pitfalls, and scaffolds (<45 lines).
+- `src/components/steps/summative_hub/imposter/services/context_extractor/questionContextExtractor.ts`: Orchestrates chunk, vocabulary, and diagnostic context into structured lesson question payload (<50 lines).
+- `src/components/steps/summative_hub/imposter/services/context_extractor/index.ts`: Barrel export for context extractor module (<10 lines).
+- `src/components/steps/summative_hub/imposter/services/prompts/presenterPersonaRules.ts`: High-Energy Quiz Host persona definitions and 4 strict student-facing question templates (<45 lines).
+- `src/components/steps/summative_hub/imposter/services/prompts/imposterQuizPresenterPrompt.ts`: System prompt builder assembling extracted lesson context and JSON schema rules (<55 lines).
+- `src/components/steps/summative_hub/imposter/services/prompts/index.ts`: Barrel export for prompts module (<5 lines).
+- `src/components/steps/summative_hub/imposter/services/lessonQuestionHelper.ts`: Natural lesson-grounded question generator asking directly about taught lesson concepts (<30 lines).
+- `src/components/steps/summative_hub/imposter/services/generator/batchPoolHelpers.ts`: Sub-helpers synthesizing 10 items for each of the 4 question types from extracted lesson context (<90 lines).
+- `src/components/steps/summative_hub/imposter/services/generator/imposterQuestionPoolGenerator.ts`: Generates full interleaved 40-question batch bank prior to room launch (<45 lines).
+- `src/components/steps/summative_hub/imposter/services/generator/imposterQuestionStorage.ts`: Pre-game question pool persistence in session storage ensuring zero-latency offline gameplay (<65 lines).
+- `src/components/steps/summative_hub/imposter/services/generator/index.ts`: Barrel export for generator module (<5 lines).
+
+## GridLock Hexagonal Assessment Battle Registry (Chunks 1, 2, 3 & 4 Complete)
+- `src/components/steps/summative_hub/gridlock/types/gridlockTypes.ts`: Data contracts for GridlockGameState, HexTile (5x5 coordinates, letter, owner, isGold), Player, Team, TournamentScore, and GridlockRoomConfig (<55 lines).
+- `src/components/steps/summative_hub/gridlock/helpers/fuzzyMatcher.ts`: Levenshtein distance matching engine for typed answers with typo tolerance (<55 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockConfigControls.tsx`: Tournament format selector (Best-of-3/5/7) and 2 Gold Hexagon toggle (<75 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockRoomLauncherCard.tsx`: 4-letter room code generator, student QR code image, and link actions (<70 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockInlineSetupView.tsx`: Direct inline setup view without popup modals (<90 lines).
+- `src/components/steps/summative_hub/gridlock/setup/index.ts`: Barrel export for GridLock setup sub-components (<5 lines).
+- `src/components/steps/summative_hub/gridlock/services/gridlockApi.ts`: Client API service communicating with `/api/gridlock/*` with offline fallback (<55 lines).
+- `server/gridlockHandler.ts`: Express router for GridLock room creation (`/api/gridlock/create-room`) and status querying (`/api/gridlock/room-status`) (<55 lines).
+- `src/components/steps/summative_hub/gridlock/board/pathConnectionChecker.ts`: BFS path connection validator for Red Left-to-Right and Blue Top-to-Bottom win checks (<85 lines).
+- `src/components/steps/summative_hub/gridlock/board/HexTileNode.tsx`: Hexagonal polygon tile with 2x Gold Hex styling, first-letter indicators, and state animations (<65 lines).
+- `src/components/steps/summative_hub/gridlock/board/TerritoryHeatmapOverlay.tsx`: SVG animated glowing energy lines between adjacent captured tiles (<75 lines).
+- `src/components/steps/summative_hub/gridlock/board/HexGridContainer.tsx`: 5x5 honeycomb interlocking grid container with direction indicators (<60 lines).
+- `src/components/steps/summative_hub/gridlock/board/GridlockHeaderBanner.tsx`: Live round timer, series score, streaks, and MVP highlight banner (<70 lines).
+- `src/components/steps/summative_hub/gridlock/board/GridlockMainBoard.tsx`: Main board coordinating grid, win validation, and header ticker (<60 lines).
+- `src/components/steps/summative_hub/gridlock/board/index.ts`: Barrel export for board module (<10 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/PercentageScoringEngine.ts`: Accuracy percentage scoring engine to balance unequal team sizes with average response time tiebreaking (<85 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/StudentTypedInputCard.tsx`: Mobile typed short-answer card with instant typo-tolerant fuzzy matching feedback (<90 lines).
+-`src/components/steps/summative_hub/gridlock/student_view/PhoneMiniBoardPicker.tsx`: Touch-friendly mobile mini hexagon board picker enabling the choosing team to tap any lettered tile (<90 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/PhoneMiniHexNode.tsx`: Authentic miniature polygon hexagon tile component matching the main projector board (<60 lines).
+- `src/components/steps/summative_hub/gridlock/preview/TeamPhoneAnswerForm.tsx`: Dedicated pupil answer form with letter tag, voice speaker, and typed answer submission (<65 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/TileCaptureSelector.tsx`: MVP winner prompt for fastest student to pick the next hex target with interactive mini board (<75 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/StudentGridlockContainer.tsx`: Mobile student workspace controller integrating scoring, typing, and tile capture (<95 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/index.ts`: Barrel export for student_view module (<5 lines).
+- `src/components/steps/summative_hub/gridlock/game_loop/backupQuestionLoader.ts`: Backup question loader and letter fallback pool (<45 lines).
+- `src/components/steps/summative_hub/gridlock/game_loop/goldHexPenaltyEngine.ts`: 2x Double points and 50% time penalty mechanics for Gold Hex captures (<45 lines).
+- `src/components/steps/summative_hub/gridlock/game_loop/tournamentSeriesManager.ts`: Tournament format Best-of-3/5/7 tracker and champion evaluation (<60 lines).
+- `src/components/steps/summative_hub/gridlock/game_loop/index.ts`: Barrel export for game_loop module (<5 lines).
+- `src/components/steps/summative_hub/gridlock/celebration/MvpPodiumCard.tsx`: 1st, 2nd, and 3rd rank podium for game and tournament champions (<85 lines).
+- `src/components/steps/summative_hub/gridlock/celebration/TeamTrophyModal.tsx`: Loud bridge completion and tournament champion celebration modal (<95 lines).
+- `src/components/steps/summative_hub/gridlock/celebration/index.ts`: Barrel export for celebration module (<5 lines).
+- `src/components/steps/summative_hub/gridlock/analytics/ConceptMasteryMetrics.tsx`: Hexagon curriculum accuracy breakdown with misconception warnings (<85 lines).
+- `src/components/steps/summative_hub/gridlock/analytics/GridlockSummaryReport.tsx`: Post-game debrief report matching existing hub assessment formats (<90 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockAttachedBanner.tsx`: Lesson plan attachment confirmation banner with progression shortcut to Step 5 (<40 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockQuestionInspector.tsx`: Interactive curriculum letter hexes bank & question inspector with AI generation trigger (<95 lines).
+- `src/components/steps/summative_hub/gridlock/services/gridlockPromptBuilder.ts`: UK curriculum prompt builder for 25 hexagonal letter questions (<50 lines).
+- `src/components/steps/summative_hub/gridlock/services/gridlockAiGenerator.ts`: Gemini client generator with fallback pool & 5x5 grid builder (<90 lines).
+- `src/components/steps/summative_hub/gridlock/projector/GridlockInteractiveArena.tsx`: Live classroom arena simulator with Main Screen, Dual Screen + Phone, and Pupil Phone layouts (<95 lines).
+- `src/components/steps/summative_hub/gridlock/projector/GridlockProjectorModal.tsx`: Full-screen classroom projector arena presentation modal (<45 lines).
+- `src/components/steps/summative_hub/gridlock/projector/index.ts`: Barrel export for projector module (<5 lines).
+- `src/components/steps/summative_hub/gridlock/board/GridlockBoundaryWalls.tsx`: Visual Red (Left/Right) and Blue (Top/Bottom) boundary goal walls on the 5x5 hexagon board (<50 lines).
+- `src/components/steps/summative_hub/gridlock/helpers/audioBeepEngine.ts`: Synthesizer for 10-second warning countdown beeps and final buzzer (<45 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/GridlockQuestionTimer.tsx`: 30-second question timer with 10s audio warning beeps and early submit cutoff (<65 lines).
+- `src/server/gridlockQuestionHandler.ts`: Express backend endpoint for `/api/generate-gridlock-questions` with circuit breaker (<35 lines).
+
+### Don't Say It! (Taboo-Style Classroom Game) Architecture (Complete Suite)
+- `src/components/steps/summative_hub/dont_say_it/types/dontSayItTypes.ts`: Data contracts for DontSayItRoomConfig, SecretWordCard, DontSayItGameState, JudgeVoteState, Player (<70 lines).
+- `src/components/steps/summative_hub/dont_say_it/services/phraseSanitizer.ts`: Strict phrase sanitizer filtering out action verbs, student instructions, hanging stopwords, and bare adjectives (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/services/lessonGroundedExtractor.ts`: Local noun phrase extractor and domain concept synthesizer strictly grounded in lesson chunks (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/services/targetWordExtractor.ts`: Punchy 1-3 word vocabulary extractor filtering out syllabus stop phrases and academic objective sentences (<40 lines).
+- `src/components/steps/summative_hub/dont_say_it/services/wordPoolCalculator.ts`: Exact word pool sizing calculation (Cards = Teams × Rounds) with automated synchronization (<55 lines).
+- `src/components/steps/summative_hub/dont_say_it/services/bannedWordAiFallback.ts`: Ingests lesson context to generate curriculum-grounded fallback forbidden words (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/services/dontSayItApi.ts`: Client API layer for `/api/dont-say-it/create-room`, `/api/dont-say-it/room-status`, and `/api/dont-say-it/extract-words` (<70 lines).
+- `src/components/steps/summative_hub/dont_say_it/services/index.ts`: Barrel export for services (<8 lines).
+- `src/server/dontSayItExtractHandler.ts`: Express backend AI endpoint for `/api/dont-say-it/extract-words` generating 1-3 word lesson concepts (<55 lines).
+- `src/components/steps/summative_hub/dont_say_it/setup/TeamListInputs.tsx`: Team custom name inputs and colour swatches (<45 lines).
+- `src/components/steps/summative_hub/dont_say_it/setup/EditableCardItem.tsx`: Teacher inline editable card item for secret target words and forbidden terms (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/setup/DontSayItMatchParamGrid.tsx`: Match rounds (1-5), round timer, and words-per-pupil (1, 2, 3) configuration (<60 lines).
+- `src/components/steps/summative_hub/dont_say_it/setup/DontSayItConfigControls.tsx`: Team count (2-4), custom names/colours, and match parameters (<60 lines).
+- `src/components/steps/summative_hub/dont_say_it/setup/DontSayItRoomLauncherCard.tsx`: Room code generator, QR code launcher, Google Slides embed link, and Attach to Lesson trigger (<85 lines).
+- `src/components/steps/summative_hub/dont_say_it/setup/DontSayItCardPreviewList.tsx`: Grid preview of editable secret words with re-extract triggers (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/setup/useDontSayItSetup.ts`: React hook managing setup state, room code generation, and AI word extraction (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/setup/DontSayItInlineSetupView.tsx`: Inline setup tab workspace with card pool synchronization and Step 5 progression (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/setup/index.ts`: Barrel export for setup components (<9 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/AntiPeekGuard.tsx`: Full-screen "Guesser, Turn Around!" guard unlocked manually by opposing judge (<50 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/ActiveSecretCardDisplay.tsx`: High-contrast display for target secret word & forbidden words (<45 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/GuesserWheelCard.tsx`: Animated selection wheel picking the front-of-class guesser (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/DecayingScoreGauge.tsx`: 60-second score gauge decaying from 1,000 to 100 points (<55 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/ClueGiverRotatorBanner.tsx`: 5-second clue-giver rotation with 3-2-1 audio tick cues (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/FloatingReactionsOverlay.tsx`: Silent floating emoji reaction particles (🔥, 😬, 🤫, 💀) across projector display (<40 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/FoulFreezeOverlay.tsx`: Dramatic REPLAY REVIEW / JUDGES CONFERRING pause overlay (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/DontSayItMainBoard.tsx`: Main projector display coordinating anti-peek, score decay, rotator, blackout, and reactions (<80 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/index.ts`: Barrel export for board module (<9 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/StudentClueGiverCard.tsx`: Active clue-giver phone view with emerald highlight, large forbidden words, and 5s turn countdown ring (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/BannedWordFormSection.tsx`: Form input, tags, and submit action for pupil forbidden words (<60 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/BannedWordInputCard.tsx`: Opposing team forbidden words builder during wheel spin/setup (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/OpposingJudgePanel.tsx`: Judge control panel with Start Game unlock, Foul trigger, and Whistleblower alerts (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/SpectatorLivePanel.tsx`: Spectator & opposing squad panel with Whistleblower Flag, Silent Reactions, and 30s Speed Bet (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/JudgeConsensusVoteModal.tsx`: Majority consensus foul adjudication voting modal with teacher override (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/StudentDontSayItContainer.tsx`: Role-adaptive student phone container for guessers, clue-givers, saboteurs, spectators, and judges (<90 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/index.ts`: Barrel export for student_view module (<8 lines).
+- `src/components/steps/summative_hub/dont_say_it/game_loop/roundEscalationEngine.ts`: Multi-round escalation engine (1x, 2x, 3x multipliers) and turn advancement (<70 lines).
+- `src/components/steps/summative_hub/dont_say_it/game_loop/TeacherMasterControls.tsx`: Teacher 1-tap CORRECT (+decaying pts), PASS (-50 pts), and End Turn early controls (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/game_loop/index.ts`: Barrel export for game_loop module (<5 lines).
+- `src/components/steps/summative_hub/dont_say_it/judging/HeardTheWordButton.tsx`: Guessing team ear-witness judge button to confirm correct guesses (<60 lines).
+- `src/components/steps/summative_hub/dont_say_it/judging/SecretWordBlackoutOverlay.tsx`: Screen blackout masking secret target and forbidden terms during review to prevent anti-peek cheating (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/judging/AdjudicationModal.tsx`: Peer confirmation voting modal with Correct vs Continue and teacher override (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/judging/judgingEngine.ts`: Automated point calculation, foul penalty logic, and unfreezing state engine (<85 lines).
+- `src/components/steps/summative_hub/dont_say_it/judging/index.ts`: Barrel export for judging module (<5 lines).
+- `src/components/steps/summative_hub/dont_say_it/celebration/DontSayItMvpPodiumCard.tsx`: 1st, 2nd, and 3rd place student MVP clue master podium (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/celebration/DontSayItTeamTrophyModal.tsx`: Winning team champion trophy celebration modal (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/celebration/index.ts`: Barrel export for celebration module (<5 lines).
+- `src/components/steps/summative_hub/dont_say_it/analytics/DontSayItConceptMetrics.tsx`: Vocabulary recall breakdown and illegal word slip-up alerts (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/analytics/DontSayItSummaryReport.tsx`: Post-game debrief report matching summative assessment formats (<90 lines).
+- `src/components/steps/summative_hub/dont_say_it/analytics/index.ts`: Barrel export for analytics module (<5 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/DevicePhoneMockup.tsx`: Realistic pupil smartphone chassis with speaker notch, battery/wifi status, role badge, and scroll container (<45 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/DeviceRoleSwitcher.tsx`: Interactive selector to preview phone as Clue-Giver, Saboteur, Opposing Judge, Guessing Judge, or Spectator (<50 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/DontSayItSimulationBar.tsx`: Teacher live sandbox bar with Foul, Heard Word, Floating Reaction, and Reset simulation triggers (<60 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/DontSayItPlayPreview.tsx`: Side-by-side live simulator coordinating the main projector display and responsive pupil phone feed (<95 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/index.ts`: Barrel export for preview module (<6 lines).
+- `src/components/steps/summative_hub/dont_say_it/index.ts`: Main module barrel export (<12 lines).
+- `server/dontSayItHandler.ts`: Express backend router for `/api/dont-say-it/create-room` and `/api/dont-say-it/room-status` (<65 lines).
+
+### Competitive Quiz Arena (Chunk 1 Architecture)
+- `src/components/steps/summative_hub/competitive_quiz/types/competitiveQuizTypes.ts`: Full data contracts for CompetitiveQuizConfig, 8 QuestionFormats, QuestionCard, PlayerState, PowerUpItem, and DecoyViolation (<88 lines).
+- `src/components/steps/summative_hub/competitive_quiz/services/jargonSanitizer.ts`: Helper sanitizing corporate/college jargon to ensure teenager-friendly, curriculum-focused language (<30 lines).
+- `src/components/steps/summative_hub/competitive_quiz/services/formatLabels.ts`: Metadata definitions for all 8 distinct high-energy formats with pots and timers (<20 lines).
+- `src/components/steps/summative_hub/competitive_quiz/services/jargonFreeQuestionEngine.ts`: Curriculum-grounded generator across 8 question formats (Spot the Lie, Order Steps, Target Tap, Speed Match, Odd One Out, Binary Blitz, Wager Drop, Standard MCQ) (<70 lines).
+- `src/components/steps/summative_hub/competitive_quiz/services/ttsPresenterService.ts`: Browser SpeechSynthesis engine with pitch/rate/voice controls and British English defaults (<60 lines).
+- `src/components/steps/summative_hub/competitive_quiz/services/competitiveQuizApi.ts`: Client API layer with circuit breaker for room creation, status polling, and AI synthesis (<60 lines).
+- `src/components/steps/summative_hub/competitive_quiz/services/index.ts`: Barrel export for services (<10 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/VoiceSelectorCard.tsx`: British English teacher-friendly voice selector with live SpeechSynthesis test trigger (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/RoomConfigControls.tsx`: Mode (solo/squads), timer (6s-15s), pot pattern, power-up and phone gyro steal toggles (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/QuestionCardPreviewList.tsx`: Scrollable preview of generated curriculum cards with format badges (<65 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/CompetitiveQuizLauncherCard.tsx`: Join code banner, QR launcher, Google Slides embed, and attach-to-lesson action (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/CompetitiveQuizSetupView.tsx`: Integrated setup workspace with generation, parameter management, and room dispatch (<95 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/index.ts`: Barrel export for setup components (<10 lines).
+- `src/components/steps/summative_hub/competitive_quiz/index.ts`: Root barrel export for competitive quiz (<10 lines).
+- `server/competitiveQuizHandler.ts`: Express backend router for `/api/competitive-quiz/create-room` and `/api/competitive-quiz/room-status` (<70 lines).
+- `src/components/steps/summative_hub/summative_quiz/usePlainQuizState.ts`: Extracted state hook for Plain Quiz to maintain sub-100 line hygiene (<90 lines).
+
+### Competitive Quiz Arena (Chunk 2 Architecture - Board & Live Display)
+- `src/components/steps/summative_hub/competitive_quiz/board/SecretPatternRenderer.tsx`: Background pattern renderer supporting 1 true pot skin (golden honeycomb) and 5 distinct decoy patterns (<40 lines).
+- `src/components/steps/summative_hub/competitive_quiz/board/TtsPresenterBanner.tsx`: Audio playback banner reading questions aloud with mute/play toggle and British presenter styling (<60 lines).
+- `src/components/steps/summative_hub/competitive_quiz/board/DecoyViolationBanner.tsx`: Public alert banner displaying premature phone flip violations with 50% point forfeiture distribution (<60 lines).
+- `src/components/steps/summative_hub/competitive_quiz/board/LightningChestOverlay.tsx`: Lightning speed drop overlay featuring 3 glowing mystery chests with tactical buffs (<65 lines).
+- `src/components/steps/summative_hub/competitive_quiz/board/CeremonyPodiumBoard.tsx`: End-of-round ceremony podium showcasing top 3 pedestals, next 5 chasers, and live score shift indicators (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/board/CompetitiveQuizMainBoard.tsx`: Primary projector screen with timer progress bar, pot value, format badge, and integrated sub-banners (<95 lines).
+- `src/components/steps/summative_hub/competitive_quiz/board/index.ts`: Barrel export for board module (<10 lines).
+
+### Competitive Quiz Arena (Chunk 3 Architecture - Pupil Phone View)
+- `src/components/steps/summative_hub/competitive_quiz/student_view/useGyroscopeSensor.ts`: Device orientation hook tracking beta/gamma angles with upside-down threshold detection and desktop flip simulator (<55 lines).
+- `src/components/steps/summative_hub/competitive_quiz/student_view/FormatAnswerInputGrid.tsx`: Input layout handler for all 8 distinct format types including binary, wager, and multiple options (<96 lines).
+- `src/components/steps/summative_hub/competitive_quiz/student_view/FormatAnswerCard.tsx`: Pupil answer container with format tag, timer display, choice selection, and lock-in button (<75 lines).
+- `src/components/steps/summative_hub/competitive_quiz/student_view/MysteryChestPickerCard.tsx`: Speed-qualifying chest selection UI with 3 mystery chests, reveal states, and power-up grants (<75 lines).
+- `src/components/steps/summative_hub/competitive_quiz/student_view/PotStealInputCard.tsx`: Gold pot heist interface triggered upon inverting device, with decoy warning and execution triggers (<75 lines).
+- `src/components/steps/summative_hub/competitive_quiz/student_view/StudentCompetitiveQuizContainer.tsx`: Complete pupil phone shell managing orientation flips, mystery drops, active questions, and status (<95 lines).
+- `src/components/steps/summative_hub/competitive_quiz/student_view/index.ts`: Barrel export for student view module (<10 lines).
+
+### Competitive Quiz Arena (Chunk 4 Architecture - Attack Engine & Heist Resolution)
+- `src/components/steps/summative_hub/competitive_quiz/attack_engine/attackProcessor.ts`: Resolves live pupil attacks (Aegis Shields, Glitch Rays, Point Thieves, Fog of War, Time Warps) during round transitions (<85 lines).
+- `src/components/steps/summative_hub/competitive_quiz/attack_engine/potStealEngine.ts`: Validates pot heist attempts against true vs decoy patterns, redistributing 50% forfeited points to bottom 5 on decoys (<75 lines).
+- `src/components/steps/summative_hub/competitive_quiz/attack_engine/underdogRubberBanding.ts`: Dynamic underdog detection granting bottom 5 pupils +3s speed limit buffer and doubled loot drop rates (<45 lines).
+- `src/components/steps/summative_hub/competitive_quiz/attack_engine/AttackResolutionOverlay.tsx`: Visual overlay displaying resolved attacks, shield blocks, and point siphons between avatars (<85 lines).
+- `src/components/steps/summative_hub/competitive_quiz/attack_engine/index.ts`: Barrel export for attack engine module (<10 lines).
+
+### Competitive Quiz Arena (Chunk 5 Architecture - Teacher Controls & Diagnostic Analytics)
+- `src/components/steps/summative_hub/competitive_quiz/teacher_controls/ManualScoreOverrideModal.tsx`: Teacher modal to manually adjust pupil scores with delta points and pedagogical reason tag (<96 lines).
+- `src/components/steps/summative_hub/competitive_quiz/teacher_controls/TeacherQuizControls.tsx`: Live control dock with Pause/Resume, Skip Round, Force Pot Unlock, and Score Adjustment triggers (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/teacher_controls/index.ts`: Barrel export for teacher controls (<10 lines).
+- `src/components/steps/summative_hub/competitive_quiz/analytics/analyticsTypes.ts`: Data models for concept accuracy, flagged pupils, and diagnostic reports (<30 lines).
+- `src/components/steps/summative_hub/competitive_quiz/analytics/ConceptHeatmapCard.tsx`: Curriculum topic accuracy heatmap with color-coded mastery gauges and attempt ratios (<60 lines).
+- `src/components/steps/summative_hub/competitive_quiz/analytics/PupilAlertsCard.tsx`: Targeted pupil support alerts highlighting specific misconceptions and follow-up guidance (<60 lines).
+- `src/components/steps/summative_hub/competitive_quiz/analytics/CompetitiveQuizAnalytics.tsx`: Complete diagnostic mastery suite with print/export summary and follow-up lesson chunk recommendations (<80 lines).
+- `src/components/steps/summative_hub/competitive_quiz/analytics/index.ts`: Barrel export for analytics module (<10 lines).
+
+### Competitive Quiz Arena (Expanded Architecture - Mystery Gifts Engine)
+- `src/components/steps/summative_hub/competitive_quiz/types/mysteryGiftTypes.ts`: Type models for 48 mystery gifts, traps, categories, and active effect states (<75 lines).
+- `src/components/steps/summative_hub/competitive_quiz/mystery_gifts/catalogPart1.ts`: Gift definitions 1-24: Shields, Mirror Shield, Cloak, Bank Vault, Cleanse, Fortress, Siphons (<35 lines).
+- `src/components/steps/summative_hub/competitive_quiz/mystery_gifts/catalogPart2.ts`: Gift definitions 25-48: Mad World, Portal Swap, Scapegoat, Acca Bet, Inversion Field, Vortex (<30 lines).
+- `src/components/steps/summative_hub/competitive_quiz/mystery_gifts/mysteryGiftCatalog.ts`: Catalog aggregator and underdog-weighted random loot roller (<30 lines).
+- `src/components/steps/summative_hub/competitive_quiz/mystery_gifts/giftResolutionEngine.ts`: In-memory resolver for mirror shields, scapegoat disguise redirects, and portal swaps (<85 lines).
+- `src/components/steps/summative_hub/competitive_quiz/mystery_gifts/DisruptionScreenEffects.tsx`: Dynamic screen distorter for Mad World mirror, Fog of War, and static shock (<55 lines).
+- `src/components/steps/summative_hub/competitive_quiz/mystery_gifts/ExpandedChestPickerModal.tsx`: Speed-qualifying 3-chest picker with live rarity reveals and buffs (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/mystery_gifts/index.ts`: Barrel export for mystery gifts engine (<10 lines).
+
+### Competitive Quiz Arena (Expanded Architecture - Special Event Minigames)
+- `src/components/steps/summative_hub/competitive_quiz/types/minigameTypes.ts`: Type definitions for RaceRunners, RaceBets, DrawDuels, and ScoreSwapChains (<55 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/scoreSwapChainEngine.ts`: Score swap resolver chaining swaps in order of pupil answer speed (<55 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/ScoreSwapChainOverlay.tsx`: Projector screen overlay showing live sequential score swap chain reaction (<70 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/ScoreSwapTargetPicker.tsx`: Pupil phone card for selecting rival target to swap with (<75 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/avatarRaceEngine.ts`: Grand Prix logic with 25% racers (min 2), looped 4-shape taps, and betting payouts (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/AvatarRaceProjectorBoard.tsx`: Projector race board showing running avatars, lanes, and champion podium (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/AvatarRacePupilController.tsx`: Dual-mode pupil controller for 10s wagers or rapid shape sprinting (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/DrawCanvasPupilCard.tsx`: Zero-cost HTML5 canvas with 5 colour choices, eraser, clear, and touch support (<96 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/DrawVotingProjectorBoard.tsx`: Side-by-side sketch comparison board with live classroom vote percentages (<80 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/DrawVotingPupilCard.tsx`: One-tap pupil voting card for best drawing (<75 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/ReverseInstructionCard.tsx`: Double-negative reverse trick question card with rapid 8s countdown (<75 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/MisconceptionDebriefBanner.tsx`: 5-second learning lock-in debrief explaining why common trap options fail (<65 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/index.ts`: Barrel export for special minigames (<15 lines).
+
+### Competitive Quiz Arena (Chunk 6 Architecture - Setup Customisation & Question Editing)
+- `src/components/steps/summative_hub/competitive_quiz/editor/CompetitiveQuestionEditorModal.tsx`: Comprehensive question editor modal allowing teachers to modify prompts, distractor options, marked correct indices, and diagnostic explanations (<96 lines).
+- `src/components/steps/summative_hub/competitive_quiz/editor/QuestionReorderDeck.tsx`: Dynamic reordering and round management controls with move up/down, inspect, edit, and delete triggers (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/editor/CustomQuestionCreatorCard.tsx`: Intuitive teacher authoring form to write custom questions in any format slot (<96 lines).
+- `src/components/steps/summative_hub/competitive_quiz/editor/QuestionInspectorModal.tsx`: Pre-flight pedagogical audit modal examining target concepts, Bloom's cognitive alignment, and distractor rationales (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/editor/index.ts`: Barrel export for editor module (<10 lines).
+
+### Competitive Quiz Arena (Chunk 7 Architecture - Dedicated AI Format Factories)
+- `src/components/steps/summative_hub/competitive_quiz/factories/spotTheLieFactory.ts`: Single-purpose factory extracting 3 authentic curriculum facts and 1 plausible inverted curriculum lie from lesson chunks (<45 lines).
+- `src/components/steps/summative_hub/competitive_quiz/factories/orderStepsFactory.ts`: Single-purpose factory extracting 4-stage chronological and causal sequences into scrambled arrays (<45 lines).
+- `src/components/steps/summative_hub/competitive_quiz/factories/oddOneOutFactory.ts`: Single-purpose factory isolating 3 concept properties sharing a core rule and 1 rule-breaking outlier (<40 lines).
+- `src/components/steps/summative_hub/competitive_quiz/factories/targetHotspotFactory.ts`: Single-purpose factory anchoring coordinate hot-spots and diagram regions to focal reaction points (<35 lines).
+- `src/components/steps/summative_hub/competitive_quiz/factories/formatFactoryRouter.ts`: Central routing engine dispatching format generation to isolated single-purpose factories to eliminate boilerplate (<95 lines).
+- `src/components/steps/summative_hub/competitive_quiz/factories/index.ts`: Barrel export for format factories module (<10 lines).
+
+### Competitive Quiz Arena (Chunk 8 Architecture - Printable Worksheets & LMS Exports)
+- `src/components/steps/summative_hub/competitive_quiz/exporters/PrintablePupilWorksheet.tsx`: High-resolution, print-optimised paper assessment sheet with candidate headers, mark allocations, and formatted question options (<60 lines).
+- `src/components/steps/summative_hub/competitive_quiz/exporters/TeacherAnswerKeySheet.tsx`: Confidential educator mark scheme featuring verified solutions, diagnostic rationales, and curriculum targets (<65 lines).
+- `src/components/steps/summative_hub/competitive_quiz/exporters/GoogleFormsCsvExporter.ts`: Pure client-side CSV formatter and blob downloader formatted for 1-click import into Google Forms and school LMS platforms (<55 lines).
+- `src/components/steps/summative_hub/competitive_quiz/exporters/ExportModal.tsx`: Comprehensive export modal providing preview tabs and single-click access to paper printing, teacher keys, and CSV downloads (<96 lines).
+- `src/components/steps/summative_hub/competitive_quiz/exporters/index.ts`: Barrel export for exporters module (<10 lines).
+
+### Competitive Quiz Arena (Advanced Tactical Showdowns & Survival Modes)
+- `src/components/steps/summative_hub/competitive_quiz/minigames/binaryBlitzEngine.ts`: Sudden-death survivor tracker with dynamic speed limit acceleration and simultaneous wipeout consolation handler (<75 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/BinaryBlitzProjectorArena.tsx`: Projector arena showing live pulsing survivor avatars vs graveyard, rapid timer, and accumulated jackpot ticker (<96 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/BinaryBlitzPupilController.tsx`: Haptic-style True/False rapid responder with elimination graveyard state (<85 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/accaBetEngine.ts`: Sports-betting style accumulator engine with 50% steal logic and >90% classroom collusion lock (<65 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/AccaBetSlipModal.tsx`: Multi-select pupil bet slip with live potential winnings and risk/reward multipliers (<96 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/trapAnswerEngine.ts`: Option injector embedding 2 pupil-crafted decoy trap answers and transferring 20% scores from victims (<55 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/TrapAnswerCrafterModal.tsx`: 15-second timed authoring card for pupils to write 2 devious trap answers on their mobile device (<96 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/TrapVictimAlertBanner.tsx`: Projector and player ambush alert highlighting tricked victims and point transfers (<55 lines).
+- `src/components/steps/summative_hub/competitive_quiz/editor/QuestionCardRow.tsx`: Expandable question row with clear visual answer badges (✓ Correct, 🚨 The Lie, Outlier) and option grid (<96 lines).
+- `src/server/competitiveQuizQuestionsHandler.ts`: Backend Gemini AI endpoint generating punchy player-centric questions with plausible distractors under strict schema validation (<65 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/FormatRecipeSelector.tsx`: Interactive recipe selector offering 11 distinct question format toggles and 1-click recipes (Guaranteed 1 of Each, Max Chaos, Fast Blitz) (<85 lines).
+- `src/components/steps/summative_hub/competitive_quiz/board/AccumulatorPotBanner.tsx`: Prominent animated jackpot vault banner displaying growing pot score and active secret pattern status (<65 lines).
+- `src/components/steps/summative_hub/competitive_quiz/factories/reverseInstructionFactory.ts`: Dedicated reverse reflex "DO NOT!" question generator (<30 lines).
+- `src/components/steps/summative_hub/competitive_quiz/factories/actionShowdownFactory.ts`: Dedicated factory for Score Swap Duels, Avatar Sprint Races, and Diagram Draw Showdowns (<65 lines).
+- `src/components/steps/summative_hub/competitive_quiz/services/potScheduleEngine.ts`: Calculates gradual pot point accumulation and schedules the true gold secret skin randomly in the 4th fifth of rounds (<45 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/MatchDurationStepperCard.tsx`: Match duration estimator with round count stepper and quick time presets (4 Qs/3m to 15 Qs/20m) (<90 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/ChunkExtractionPipelineCard.tsx`: Grounded chunk-by-chunk extraction pipeline card with hybrid arena format balance and single topic re-roll (<95 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/binaryBlitzEngine.ts`: Multi-statement rapid-fire survival knockout engine with accelerating timer, growing jackpot pot, and double-fault lone survivor rescue logic (<85 lines).
+- `src/components/steps/summative_hub/competitive_quiz/minigames/AvatarRacePupilController.tsx`: Asymmetric mobile controller with 4-question silent shape loop for racers and live betting with emoji cheer buttons for spectators (<100 lines).
+- `src/components/steps/summative_hub/summative_quiz/QuizSubTabBar.tsx`: Sub-tab bar with streamlined active quiz formats (Plain, Ladder, Imposter, GridLock, Competitive, Don't Say It) (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/DontSayItSimulatorModal.tsx`: Live dual-screen preview simulator modal testing clue-giver views, timers, and referee buzzers (<68 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/ClueGiverPreviewCard.tsx`: Player clue-giver card view with target word banner, locked forbidden taboo badges, and hint notes (<58 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/RefereeBuzzerCard.tsx`: Referee judge card view with high-voltage foul penalty buzzer and pass controls (<56 lines).
+- `src/components/steps/summative_hub/dont_say_it/editor/TabooCardEditorModal.tsx`: Per-card editor modal for modifying target terms, taboo words, teacher notes, and 1-click AI re-roll (<81 lines).
+- `src/components/steps/summative_hub/dont_say_it/editor/CardReorderList.tsx`: Reorder list with arrow controls, edit trigger, delete, and AI re-roll per card (<48 lines).
+- `src/components/steps/summative_hub/dont_say_it/editor/CustomTabooCardCreator.tsx`: Inline card authoring form for manually adding custom teacher taboo cards (<82 lines).
+- `src/components/steps/summative_hub/dont_say_it/services/tabooCardService.ts`: Single-card AI re-roll engine and default taboo card generator (<52 lines).
+- `src/components/steps/summative_hub/dont_say_it/factories/chunkGroundedTabooFactory.ts`: Section-by-section lesson chunk grounded taboo card extraction factory with progress tracking (<61 lines).
+- `src/components/steps/summative_hub/dont_say_it/factories/forbiddenWordMisconceptionEngine.ts`: Smart forbidden word engine targeting core scientific mechanisms and student misconceptions (<47 lines).
+- `src/components/steps/summative_hub/dont_say_it/factories/tabooFactoryRouter.ts`: Generator router balancing backend AI calls and local grounded factory fallbacks (<44 lines).
+- `src/components/steps/summative_hub/dont_say_it/inspector/TabooPreFlightInspectorModal.tsx`: Pre-flight pedagogical audit modal showing Bloom's levels, chunk alignment, and misconception rationale (<48 lines).
+- `src/components/steps/summative_hub/dont_say_it/inspector/MisconceptionRationaleCard.tsx`: Audit rationale card detailing targeted pupil misconceptions and taboo word reasoning (<56 lines).
+- `src/components/steps/summative_hub/dont_say_it/tracking/FoulCounterCard.tsx`: Real-time tracking card for successful clues, taboo fouls, and skips (<28 lines).
+- `src/components/steps/summative_hub/dont_say_it/tracking/OralClueRefereeControls.tsx`: Tap controls for pair partners/referees to log fouls, successes, and passes (<64 lines).
+- `src/components/steps/summative_hub/dont_say_it/analytics/ForbiddenWordHotspotsCard.tsx`: Diagnostic card isolating specific scientific terms and misconceptions tripping up students (<50 lines).
+- `src/components/steps/summative_hub/dont_say_it/analytics/ReteachRecommendationsCard.tsx`: Actionable follow-up reteach recommendations linked to lesson chunks (<50 lines).
+- `src/components/steps/summative_hub/dont_say_it/analytics/DontSayItAnalytics.tsx`: Post-game diagnostic suite container with oral fluency rates, hotspots, reteach suggestions, and printable report trigger (<70 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/FloatingReactionsOverlay.tsx`: Side-rail floating emoji animations with custom keyframes and bottom ticker rail (<64 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/ActiveSecretCardDisplay.tsx`: Big-screen adaptive grid displaying 1 to 20+ player-created forbidden words simultaneously without scrollbars (<70 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/AntiPeekGuard.tsx`: Clean anti-peek guard overlay without bouncing icons (<47 lines).
+- `src/components/steps/summative_hub/dont_say_it/board/InterTurnSetupBoard.tsx`: Between-rounds interstitial screen displaying next guesser, target word blind protection, and opposing sabotage status (<70 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/OpposingJudgePanel.tsx`: Mobile panel for opposing judge featuring setup verification checklist, prominent START THE GAME button, and foul objection trigger (<78 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/DontSayItPlayPreview.tsx`: Three-phase preview suite with live game, standings recap, and setup screen switcher (<95 lines).
+- `src/components/steps/summative_hub/dont_say_it/types/roundResolutionTypes.ts`: Type models for round outcome, points awarded, and multi-team score history (<25 lines).
+- `src/components/steps/summative_hub/dont_say_it/utils/dontSayItSoundEffects.ts`: Lightweight, zero-cost synthesised Web Audio blips, fanfares, buzzers, and mute control (<95 lines).
+- `src/components/steps/summative_hub/dont_say_it/standings/RoundResolutionBanner.tsx`: Round resolution banner with target word and forbidden word solution reveal (<75 lines).
+- `src/components/steps/summative_hub/dont_say_it/standings/ScoreRollUpCounter.tsx`: Smooth score counting animation with Web Audio blip ticks (<50 lines).
+- `src/components/steps/summative_hub/dont_say_it/standings/MultiTeamStandingsBoard.tsx`: Multi-team ranked leaderboard (2+ squads) with crown, lead change badges, and score bars (<85 lines).
+- `src/components/steps/summative_hub/dont_say_it/standings/TeacherBonusButton.tsx`: Teacher 1-tap +50 pts discretionary scientific vocabulary commendation (<55 lines).
+- `src/components/steps/summative_hub/dont_say_it/standings/JudgeRoundAdvancePanel.tsx`: Mobile panel on judge phone to advance to next squad setup (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/standings/SpectatorMvpPoll.tsx`: Audience spectator poll for best clue-giver of the round (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/standings/ActiveTeamCelebrationOverlay.tsx`: Lightweight CSS confetti and celebration card on active team phones (<55 lines).
+- `src/components/steps/summative_hub/dont_say_it/standings/RoundResolutionScreen.tsx`: Projector screen for round recap, roll-up standings, and sound toggle (<85 lines).
+- `src/components/steps/summative_hub/dont_say_it/student_view/StudentRecapRoleDispatcher.tsx`: Student mobile view dispatcher during round recap (<45 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/DontSayItPreviewScreenTabs.tsx`: Interactive screen phase tabs for preview mode (<60 lines).
+- `src/components/steps/summative_hub/dont_say_it/preview/usePreviewGameSession.ts`: Clean hook managing round rotation, scores, and phase transitions (<90 lines).
+- `src/components/steps/summative_hub/gridlock/preview/ProjectorBoardPreview.tsx`: 5x5 Hexagon Projector arena display with scores, clue banner, and edit shortcut (<80 lines).
+- `src/components/steps/summative_hub/gridlock/preview/TeamInputPhonePreview.tsx`: Team mobile device simulator for typed input submissions and instant feedback (<85 lines).
+- `src/components/steps/summative_hub/gridlock/preview/GridlockSimulatorModal.tsx`: Dual-screen simulator integrating projector board, mobile input, and pathway win checker (<80 lines).
+- `src/components/steps/summative_hub/gridlock/editor/GridlockTileEditorModal.tsx`: Interactive per-tile editor for prompts, backup clues, accepted answers, and Bloom's level (<85 lines).
+- `src/components/steps/summative_hub/gridlock/editor/GridlockTileReorderList.tsx`: 5x5 grid tile reorder deck supporting tile position swapping (<80 lines).
+- `src/components/steps/summative_hub/gridlock/editor/CustomTileCreatorCard.tsx`: Custom tile creation form to replace rare letters with curated subject terms (<90 lines).
+- `src/components/steps/summative_hub/gridlock/services/gridlockTileService.ts`: Single-tile AI re-roll engine, swap service, and default tile creator (<50 lines).
+- `src/components/steps/summative_hub/gridlock/setup/useGridlockSetupState.ts`: Dedicated setup state hook isolating modal and game configurations (<45 lines).
+- `src/components/steps/summative_hub/gridlock/factories/chunkGroundedGridlockFactory.ts`: 1-to-1 extraction of 25 grid terms mapped to lesson chunk learning intents (<95 lines).
+- `src/components/steps/summative_hub/gridlock/factories/rareLetterReplacementEngine.ts`: Digraph/multi-letter engine replacing rare letter traps (X, Z, Q, J) to eliminate hallucinations (<65 lines).
+- `src/components/steps/summative_hub/gridlock/factories/gridlockFactoryRouter.ts`: Grounded factory router assembling sanitized 25-tile boards with Bloom's levels (<45 lines).
+- `src/components/steps/summative_hub/gridlock/inspector/GridlockCognitiveDepthCard.tsx`: Bloom's taxonomy distribution and chunk alignment visualizer (<80 lines).
+- `src/components/steps/summative_hub/gridlock/inspector/GridlockPreFlightInspectorModal.tsx`: Pedagogical pre-flight audit modal filtering questions by Bloom's cognitive depth (<95 lines).
+- `src/components/steps/summative_hub/gridlock/live/TeamScoreTracker.tsx`: Dual-squad score and response accuracy tracker with live buzzer indicators (<70 lines).
+- `src/components/steps/summative_hub/gridlock/live/GridlockLiveGameOverlay.tsx`: Real-time match overlay orchestrating buzzer locks, tile claiming, and pathway checks (<80 lines).
+- `src/components/steps/summative_hub/gridlock/analytics/GridlockConceptHeatmapCard.tsx`: 25-node hexagonal concept accuracy heatmap with needs-reteach filter (<75 lines).
+- `src/components/steps/summative_hub/gridlock/analytics/GridlockReteachCard.tsx`: 5-minute teacher consolidation and misconception intervention card (<70 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockErrorBoundary.tsx`: Resilient error boundary preventing white-screen crashes and providing one-click board reset (<60 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockQuestionPreviewCard.tsx`: Modular host clue, backup prompt, and accepted answer variations preview sub-card (<75 lines).
+- `src/components/steps/summative_hub/gridlock/analytics/GridlockAnalyticsDashboard.tsx`: Embedded main-view post-game debrief suite with print and CSV export triggers (<80 lines).
+-`src/components/steps/summative_hub/gridlock/board/hexGridBuilder.ts`: 5x5 hexagon grid generator with Fisher-Yates array shuffling for fresh randomised board layouts (<60 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockSetupModals.tsx`: Modular container for pre-flight audit, dual-screen simulator, and projector arena modals (<65 lines).
+- `src/components/steps/summative_hub/gridlock/services/gridlockFallbackExtractor.ts`: Deterministic lesson-vocabulary fallback extractor (<55 lines).
+- `src/components/steps/summative_hub/gridlock/analytics/GridlockPostGameDebriefModal.tsx`: Post-game debrief and assessment modal triggered upon match completion (<65 lines).
+- `src/components/steps/summative_hub/gridlock/factories/chunkLexiconSynthesiser.ts`: Bulletproof lesson vocabulary and question synthesiser extracting curriculum terminology across 7 distinct cognitive rounds (<90 lines).
+- `src/components/steps/summative_hub/gridlock/factories/multiRoundQuestionBank.ts`: Multi-round question bank orchestrator scaling decks up to Best of 7 (175 curriculum questions) (<60 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockMatchRoundRows.tsx`: Multi-row match rounds view rendering questions grouped into clean A–Z rows per match (<85 lines).
+- `src/components/steps/summative_hub/gridlock/factories/curriculumPhraseExtractor.ts`: Authentic 1-word, 2-word, and 3-word technical phrase parser (<70 lines).
+- `src/components/steps/summative_hub/gridlock/helpers/GridlockVoiceReader.tsx`: Browser SpeechSynthesis reader with British English voice preference (`en-GB`) for reading clues aloud (<70 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/StreakMultiplierBadge.tsx`: Fiery streak badge and score multiplier counter (`🔥 2x / 3x Multiplier`) (<25 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/StudentInputForm.tsx`: Typo-tolerant written answer input form with countdown timer button (<50 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/StudentSubmissionResultBanner.tsx`: Instant verification feedback banner for match lock-in results (<45 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/StudentContainerHeader.tsx`: Pupil header displaying team assignment, room code, and squad indicator (<35 lines).
+- `src/components/steps/summative_hub/gridlock/preview/TeamInputPhoneHeader.tsx`: Simulator mobile header with streak badge and team switcher (<50 lines).
+- `src/components/steps/summative_hub/gridlock/preview/TeamInputFeedbackCard.tsx`: Simulator answer verification feedback card (<30 lines).
+- `src/components/steps/summative_hub/gridlock/board/hexNeighborFinder.ts`: Hexagonal offset coordinate neighbor calculator and winning path result contract (<35 lines).
+- `src/components/steps/summative_hub/gridlock/game_loop/useGridlockTurnEngine.ts`: Turn-based state machine enforcing winning-team hex selection, 30s timer, bounce-back chances, and streak multipliers (<90 lines).
+- `src/components/steps/summative_hub/gridlock/live/TurnStatusBanner.tsx`: Projector arena banner indicating active selecting team, bounce-back alerts, and timer countdown (<70 lines).
+- `src/components/steps/summative_hub/gridlock/helpers/gridlockSpeechEngine.ts`: Unified Web Speech Synthesis engine with 1-second delay auto-reading, rate controls (0.8x-1.25x), and British English persona routing (<60 lines).
+- `src/components/steps/summative_hub/gridlock/preview/TeamPhoneAnswerForm.tsx`: Phone answering interface with automatic 1-second delayed question prompt narration, auto-reading badge, and input validation (<70 lines).
+- `src/components/steps/summative_hub/gridlock/student_view/StudentTypedInputCard.tsx`: Student typed input card with 1-second delay auto-narration, letter avatar, live timer, and streak counter (<90 lines).
+- `src/components/steps/summative_hub/gridlock/helpers/VoicePersonaSelector.tsx`: Persona pills (UK Female, UK Male, UK Expressive) and reading pace selector (<55 lines).
+- `src/components/steps/summative_hub/gridlock/helpers/GridlockVoiceSettingsDialog.tsx`: Teacher modal dialog for auto-read toggle, persona selection, and voice samples (<76 lines).
+- `src/components/steps/summative_hub/gridlock/preview/screens/SimulatorScreenTabs.tsx`: 6-phase tactile tab bar for previewing Beginning Lobby, Picking Tile, 30s Challenge, Question Right, Wrong Bounce, and After-Game Debrief (<45 lines).
+- `src/components/steps/summative_hub/gridlock/preview/screens/SimulatorLobbyScreen.tsx`: Beginning match lobby showing squad rosters, connection status, and Start Match launcher (<62 lines).
+- `src/components/steps/summative_hub/gridlock/preview/screens/SimulatorScoredScreen.tsx`: Question Right celebration screen showing hex capture, response speed, and streak multiplier boost (<68 lines).
+- `src/components/steps/summative_hub/gridlock/preview/screens/SimulatorBounceScreen.tsx`: Question Wrong bounce-back screen showing 15s steal timer and opponent takeover (<62 lines).
+- `src/components/steps/summative_hub/gridlock/preview/screens/SimulatorDebriefScreen.tsx`: After-game victory podium, class accuracy analytics, and AI Concept Reteach Coach (<68 lines).
+- `src/components/steps/summative_hub/gridlock/preview/screens/SimulatorLiveView.tsx`: Split-screen layout combining projector board, active turn banner, and mobile phone (<55 lines).
+- `src/components/steps/summative_hub/gridlock/services/gridlockPromptBuilder.ts`: Upgraded prompt builder enforcing the Corridor Test, zero tautology, and anchor phrase scaffolding for multi-word concepts (<60 lines).
+- `src/components/steps/summative_hub/gridlock/factories/curriculumPhraseExtractor.ts`: Strict phrase extractor with forbidden word blacklist and automated anchor question builder (<90 lines).
+- `src/components/steps/summative_hub/gridlock/factories/rareLetterReplacementEngine.ts`: Concept-first rare letter substituter replacing Q/X/Z with genuine curriculum terms instead of forced digraphs (<50 lines).
+- `src/components/steps/summative_hub/gridlock/live/TurnStatusBanner.tsx`: Projector arena banner with Swap Question button for instant question cycling (<75 lines).
+- `src/components/steps/summative_hub/gridlock/helpers/gridlockSpeechEngine.ts`: Harmonised voice speech engine matching the Competitive Quiz TTS Presenter Service with full system voice selector, pitch slider, and rate slider (<48 lines).
+- `src/components/steps/summative_hub/gridlock/helpers/VoicePersonaSelector.tsx`: Fine-tuned voice dropdown selector with live pitch (0.8x-1.4x) and rate (0.75x-1.35x) sliders (<80 lines).
+- `src/components/steps/summative_hub/plain_quiz/preview/PlainQuizPreviewModal.tsx`: Side-by-side Dual-Screen Quiz Preview Modal with question progression and speech integration (<85 lines).
+- `src/components/steps/summative_hub/plain_quiz/preview/TeacherBoardPreview.tsx`: Classroom whiteboard preview component with question prompt, choice options, and read aloud triggers (<75 lines).
+- `src/components/steps/summative_hub/plain_quiz/preview/StudentPhonePreview.tsx`: Interactive student phone simulation frame with A/B/C/D choices and instant answer feedback (<80 lines).
+- `src/components/steps/summative_hub/plain_quiz/audio/useTextToSpeech.ts`: React hook managing speech synthesis, voice selection, speed rate (0.75x-1.35x), and pitch (<70 lines).
+- `src/components/steps/summative_hub/plain_quiz/audio/VoiceReaderControls.tsx`: Audio control panel for teacher voice selection, speed slider, auto-read toggle, and voice sample button (<90 lines).
+- `src/components/steps/summative_hub/plain_quiz/tags/LessonChunkBadge.tsx`: Visual tag component displaying source lesson chunk and learning objectives on questions (<50 lines).
+- `src/components/steps/summative_hub/plain_quiz/inspector/CognitiveRigorCard.tsx`: Bloom's taxonomy depth and cognitive level breakdown card (<55 lines).
+- `src/components/steps/summative_hub/plain_quiz/inspector/DistractorAnalysisCard.tsx`: Plausibility and misconception trap evaluation card (<50 lines).
+- `src/components/steps/summative_hub/plain_quiz/inspector/QuestionQualityInspectorModal.tsx`: Pre-flight teacher quality inspection modal (<65 lines).
+- `src/components/steps/summative_hub/plain_quiz/factories/misconceptionDistractorEngine.ts`: Prompt rules forcing realistic student misconceptions for wrong choices (<20 lines).
+- `src/components/steps/summative_hub/plain_quiz/factories/chunkGroundedPlainQuizFactory.ts`: Local question generator extracting genuine terms from lesson chunks (<50 lines).
+- `src/components/steps/summative_hub/plain_quiz/factories/plainQuizFactoryRouter.ts`: Generation orchestrator routing between AI synthesis and chunk-grounded fallback (<25 lines).
+- `src/components/steps/summative_hub/summative_quiz/services/quizPromptBuilder.ts`: Dynamic prompt builder supporting 4 teacher persona presets (Teen Scenarios, Mistake-Buster, Sharp & Punchy, GCSE Practice) (<60 lines).
+- `src/components/steps/summative_hub/plain_quiz/analytics/MasteryHeatmapCard.tsx`: Colour-coded lesson chunk mastery breakdown component (<65 lines).
+- `src/components/steps/summative_hub/plain_quiz/analytics/ReteachCoachCard.tsx`: AI 2-minute teacher reteach explanation script generator (<55 lines).
+- `src/components/steps/summative_hub/plain_quiz/analytics/TargetedInterventionsCard.tsx`: Individual pupil misconception and support recommendation card (<55 lines).
+- `src/components/steps/summative_hub/plain_quiz/analytics/PlainQuizAnalytics.tsx`: Central post-quiz debrief dashboard container with print report functionality (<50 lines).
+- `src/components/steps/summative_hub/summative_quiz/live/LiveQuizWelcomeScreen.tsx`: High-energy game lobby welcome screen with PIN, connected pupils, and launch controls (<70 lines).
+- `src/components/steps/summative_hub/summative_quiz/live/LiveQuizQuestionScreen.tsx`: Active question display with 30s timer bar, 1-second delay auto-voice, and live submission counter (<85 lines).
+- `src/components/steps/summative_hub/summative_quiz/live/LiveQuizScoreboardScreen.tsx`: Between-question interstitial scoreboard with answer reveal, explanation, and Top 5 pupil standings (<75 lines).
+- `src/components/steps/summative_hub/summative_quiz/live/LiveQuizCeremonyScreen.tsx`: Final podium celebration screen with 1st/2nd/3rd place graphics, class statistics, and report generator (<65 lines).
+- `src/components/steps/summative_hub/plain_quiz/preview/PlainQuizPreviewModal.tsx`: Live Quiz Loop preview modal enabling teachers to toggle between Lobby, Question, Scoreboard, and Podium Ceremony views (<100 lines).
+
+## Escalation Ladder Presentation Loop Simulator Registry
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderSimulatorModal.tsx`: Top-level modal container hosting presentation loops, voice narration, and step switcher (<70 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/useLadderSimulatorState.ts`: Dedicated state manager isolating stage progression, lifelines, and automatic reset loops (<100 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/useLadderQuestionBank.ts`: State hook managing dynamic rung question replacement and swap history (<40 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/ladderSwapQuestionBank.ts`: Dedicated 6-question emergency swap curriculum bank with choices and explanations (<90 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderSimulatorLobby.tsx`: Presentation welcome screen with class PIN, active pupil count, and phone mockup (<65 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderSimulatorRules.tsx`: Safety net rules explainer with tower milestones and pupil handset view (<65 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderPointsTowerCard.tsx`: Compact tower milestone level and point rewards card (<40 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderSimulatorQuestion.tsx`: Dual-screen question screen coordinating presenter board and phone frame (<80 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderPresenterBoard.tsx`: Presenter board decoupling standard emerald answer reveal from 10s classroom opinion poll grace window (<96 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderPhoneMockupFrame.tsx`: Interactive student smartphone frame with Climber/Expert/Voter tab switches (<75 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderStudentDeviceClimber.tsx`: Climber handset controller with stage-isolated lifeline tokens and synchronized grace timers (<95 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderClimberChoiceButtons.tsx`: Interactive option buttons with 50:50 vaporisation and answer selection feedback (<55 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderLifelineButtonRow.tsx`: 5-lifeline token row displaying remaining balance and disabled status (<50 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderPeerConsultView.tsx`: Full class peer nomination roster with search filter and waiting indicator (<80 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/classroomPeersData.ts`: 24-pupil active class roster dataset with scores and achievement badges (<35 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderStudentDeviceFeedback.tsx`: Mobile answer verification feedback card with curriculum explanation (<40 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderSimulatorClimb.tsx`: Escalation tower climb screen with synchronized student progress card (<85 lines).
+- `src/components/steps/summative_hub/summative_quiz/ladder/preview/LadderSimulatorCeremony.tsx`: Final podium and reward ceremony screen (<60 lines).
+
+## Classroom Imposter Quiz Studio & Dual-Screen Simulator Registry (Chunk 1)
+- `src/components/steps/summative_hub/imposter/preview/ProjectorImposterPreview.tsx`: Main classroom board projector screen displaying room code, current question, timer, and challenge rules (<75 lines).
+- `src/components/steps/summative_hub/imposter/preview/StudentPhoneImposterPreview.tsx`: Pupil mobile handset mockup with instant Innocent vs Imposter role toggle, topic clue display, and clue submission (<95 lines).
+- `src/components/steps/summative_hub/imposter/preview/ImposterSimulatorModal.tsx`: Side-by-side classroom board and student device simulator modal with navigation and timer controls (<98 lines).
+- `src/components/steps/summative_hub/imposter/preview/index.ts`: Barrel exports for imposter preview simulator components (<5 lines).
+- `src/components/steps/summative_hub/imposter/editor/ImposterQuestionEditorModal.tsx`: Modal dialog for editing prompt, lesson milestone, topic clue, and imposter bluff hint (<98 lines).
+- `src/components/steps/summative_hub/imposter/editor/CustomImposterQuestionCreator.tsx`: Compact form for creating bespoke teacher questions across the 4 imposter styles (<70 lines).
+- `src/components/steps/summative_hub/imposter/editor/ImposterQuestionReorderList.tsx`: Re-ordering card deck list with 1-click re-roll, move up/down, edit, and delete triggers (<92 lines).
+- `src/components/steps/summative_hub/imposter/editor/ImposterDeckManager.tsx`: Deck management orchestrator coordinating reorder list, editor modal, custom creator, and single-question re-roll (<75 lines).
+- `src/components/steps/summative_hub/imposter/editor/index.ts`: Barrel exports for imposter editor components (<10 lines).
+- `src/components/steps/summative_hub/imposter/services/imposterQuestionService.ts`: Single-question re-roll engine, custom question builder, and initial deck loader (<75 lines).
+- `src/components/steps/summative_hub/imposter/services/index.ts`: Barrel exports for imposter services (<5 lines).
+- `src/components/steps/summative_hub/imposter/index.ts`: Root barrel exporter for Classroom Imposter modules (<10 lines).
+
+## Classroom Imposter Grounded AI Factory & Quality Inspector Registry (Chunk 2)
+- `src/server/imposterQuestionHandler.ts`: Backend Express API handler for `/api/generate-imposter-questions` with circuit breaker (<35 lines).
+- `src/components/steps/summative_hub/imposter/factories/imposterStylePromptEngine.ts`: Curriculum-grounded prompt builder balancing the 4 Imposter styles (<45 lines).
+- `src/components/steps/summative_hub/imposter/factories/chunkGroundedImposterFactory.ts`: AI generator fetching and mapping bespoke chunk questions (<40 lines).
+- `src/components/steps/summative_hub/imposter/factories/imposterFactoryRouter.ts`: Fallback-resilient question resolver (<15 lines).
+- `src/components/steps/summative_hub/imposter/factories/index.ts`: Barrel exports for imposter factories (<5 lines).
+- `src/components/steps/summative_hub/imposter/inspector/ImposterRigorBreakdownCard.tsx`: Cognitive style balance card auditing the 4 question types (<55 lines).
+- `src/components/steps/summative_hub/imposter/inspector/ImposterQualityInspectorModal.tsx`: Pedagogical pre-flight quality audit dialog for teacher question verification (<65 lines).
+- `src/components/steps/summative_hub/imposter/inspector/index.ts`: Barrel exports for inspector components (<5 lines).
+
+## Classroom Imposter Analytics & Reteach Suite Registry (Chunk 3)
+- `src/components/steps/summative_hub/imposter/analytics/ImposterMasteryHeatmapCard.tsx`: Visual color-coded concept accuracy vs bluff detection progress bars mapped to lesson chunks (<95 lines).
+- `src/components/steps/summative_hub/imposter/analytics/ImposterReteachCoachCard.tsx`: 2-minute actionable teacher explanation script generator addressing bluff vulnerabilities (<65 lines).
+- `src/components/steps/summative_hub/imposter/analytics/ImposterTargetedInterventionsCard.tsx`: Pupil intervention list highlighting specific missed concepts and classroom follow-ups (<60 lines).
+- `src/components/steps/summative_hub/imposter/analytics/ImposterAnalyticsDashboard.tsx`: Central post-game debrief suite hosting telemetry, heatmap, reteach scripts, and print report actions (<98 lines).
+- `src/components/steps/summative_hub/imposter/analytics/index.ts`: Updated analytics barrel exporting debrief components and cards (<10 lines).
+- `src/components/steps/summative_hub/imposter/preview/ProjectorDiscussionBoard.tsx`: Discussion board displaying player avatars and answers for oral debate (<55 lines).
+- `src/components/steps/summative_hub/imposter/preview/ProjectorVotingBoard.tsx`: Voting board with open/closed ballot displays and Shadow Vote concealing (<65 lines).
+- `src/components/steps/summative_hub/imposter/preview/ProjectorEliminationBoard.tsx`: Double elimination reveal and Ghost Writing Master accolade banner (<55 lines).
+- `src/components/steps/summative_hub/imposter/preview/ProjectorHeaderNav.tsx`: Stage navigation toolbar for interactive board preview (<60 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/attackTypes.ts`: Type definitions for 4 authentic imposter attacks, queued swaps, decoys, and energy state (<30 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/ImposterEnergyBar.tsx`: Real-time energy point display with round timer indicator (<30 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/QuestionSwapWriterView.tsx`: Question Swap authoring view (200 pts) queuing silent next-round prompt swap without main screen alerts (<75 lines).
+- `src/components/steps/summative_hub/imposter/factories/imposterStylePromptEngine.ts`: Prompt builder filtering warm-up/admin boilerplate, establishing teenager-relatable persona, and enforcing under-6-word answers (<75 lines).
+- `src/server/imposterQuestionHandler.ts`: Backend question handler enforcing 5-word answer caps, distractor sanitization, and style shuffling (<65 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/EchoPromptWriterView.tsx`: Decoy category picker prioritising live pupil ghost decoys over fallbacks (<90 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/EchoPromptModeToggle.tsx`: Ghost Bank vs Write Custom tab toggle (<40 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/EchoPromptGhostList.tsx`: Scrollable topic ghost trap question cards with tap selection (<65 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/EchoPromptCustomInput.tsx`: Spacious 4-row decoy question input with 120-character counter (<50 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/EchoPromptTargetSelector.tsx`: Multi-player target picker (1-2 innocent pupils) with clear selection cards (<75 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/TimedPanicConfirmView.tsx`: Timed Panic trigger (150 pts) halving room timer and unlocking secret sneak-peek clue (<65 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/ShadowVoteConfirmView.tsx`: Shadow Vote arming view (50 pts) enforcing Closed Ballot Voting on projector (<65 lines).
+- `src/components/steps/summative_hub/imposter/preview/attacks/ImposterAttackDrawerMain.tsx`: Modular attack drawer router handling all four interactive attack flows (<85 lines).
+- `src/components/steps/summative_hub/imposter/preview/ImposterPhaseFlowBar.tsx`: Top-level 4-stage game flow navigator with 1-click stage hopping (<50 lines).
+- `src/components/steps/summative_hub/imposter/preview/StudentPhoneStageViews.tsx`: Synchronised handset views for Discussion, Voting, and Ghost workshop (<85 lines).
+- `src/components/steps/summative_hub/imposter/preview/StudentPhoneImposterTaskView.tsx`: Authentic Imposter task view with Bluffing Dossier, Live Eavesdrop Feed, and zero question leakage (<65 lines).
+- `src/components/steps/summative_hub/imposter/preview/StudentPhoneGhostWorkshopView.tsx`: Interactive Ghost Helper workshop with 120-char decoy question builder on phone (<75 lines).
+- `src/components/steps/summative_hub/imposter/preview/ImposterLoopConstants.ts`: Game loop stage timings and phase transition map (<30 lines).
+- `src/components/steps/summative_hub/imposter/preview/useImposterGameLoop.ts`: Autonomous game timer engine hook auto-advancing phases and rounds (<45 lines).
+- `src/components/steps/summative_hub/imposter/preview/imposterSoundEffects.ts`: 100% free browser Web Audio API synthesiser for game phase alarms, chimes, and voting ticks (<65 lines).
+- `src/components/steps/summative_hub/imposter/preview/imposterPresenterVoice.ts`: Free browser-native SpeechSynthesis Presenter commentary engine with stage guidance (<50 lines).
+- `src/components/steps/summative_hub/imposter/setup/ImposterVoiceSettingsCard.tsx`: Dedicated Presenter Voice control panel on room setup screen matching Ladder Quiz style with live Sample Voice button (<95 lines).
+- `src/components/steps/summative_hub/imposter/setup/useImposterVoiceLoader.ts`: Custom hook managing speech voices and voice sample toggles (<40 lines).
+- `src/components/steps/summative_hub/imposter/setup/ImposterGamePlanControls.tsx`: Game capacity planner calculating live prompt requirements (`roundsPerGame * targetGames` + reserve) without erroneously multiplying by player count (<95 lines).
+- `src/utils/storage.ts`: Temporary session storage engine enforcing intelligent compaction, stripping raw file strings, and purging legacy localStorage (<70 lines).
+- `src/utils/useAppLessonLogic.ts`: App coordinator hook with debounced session persistence and instant raw document compaction (<85 lines).
+- `src/components/steps/summative_hub/imposter/setup/ImposterInsightsCard.tsx`: Collapsible Post-Match Imposter Insights card on setup screen, default closed (<70 lines).
+- `src/components/steps/summative_hub/summative_quiz/plain_quiz/PlainQuizInsightsCard.tsx`: Collapsible Post-Match Class Insights & Item Analysis card for Plain Quiz, default closed (<65 lines).
+- `src/components/steps/summative_hub/gridlock/analytics/GridlockAnalyticsDashboard.tsx`: Bespoke GridLock analytics with contested hex hotspots, buzzer latency, and vocabulary reteaching triggers (<95 lines).
+- `src/components/steps/summative_hub/gridlock/setup/GridlockInsightsCard.tsx`: Collapsible Post-Match GridLock Hexagon Insights card, default closed (<65 lines).
+- `src/components/steps/summative_hub/competitive_quiz/analytics/CompetitiveQuizAnalyticsDashboard.tsx`: Bespoke Competitive Arena analytics with speed-accuracy tradeoff, streak busters, and ranked leaderboard (<95 lines).
+- `src/components/steps/summative_hub/competitive_quiz/setup/CompetitiveQuizInsightsCard.tsx`: Collapsible Post-Match Competitive Arena Insights card, default closed (<65 lines).
+- `src/components/steps/summative_hub/dont_say_it/analytics/DontSayItAnalyticsDashboard.tsx`: Bespoke Don't Say It verbal fluency analytics with forbidden word slip-up traps and oral debrief (<95 lines).
+- `src/components/steps/summative_hub/teacher_report/teacherReportTypes.ts`: Unified interface definition for class psychometrics, pupil audit records, and tab navigation (<30 lines).
+- `src/components/steps/summative_hub/teacher_report/TeacherMasterReportView.tsx`: Tabbed master teacher report container wrapping overview, pupil audit, SEND evidence, Ofsted audit, and mode deep-dive (<50 lines).
+- `src/components/steps/summative_hub/teacher_report/TeacherClassPsychometricsTab.tsx`: Class overview with mean, median, score distribution bell curve, and automated reteach recommendation (<85 lines).
+- `src/components/steps/summative_hub/teacher_report/TeacherPupilForensicTab.tsx`: Ranked pupil markbook with individual misconception tracking and Coursework & Exam Dispute Defense dossier (<95 lines).
+- `src/components/steps/summative_hub/teacher_report/TeacherSendAccessAuditTab.tsx`: SEND, EHCP & Access Arrangement evidence tab comparing timed vs untimed accuracy to justify 25% Extra Time (<80 lines).
+- `src/components/steps/summative_hub/teacher_report/TeacherOfstedAuditTab.tsx`: Ofsted EIF curriculum audit distinguishing whole-class delivery gaps from individual student gaps with next-lesson starter script (<75 lines).
+- `src/components/steps/summative_hub/escape_room/EscapeRoomInsightsCard.tsx`: Collapsible Post-Match Escape Room Teacher Report card, default closed (<50 lines).
+- `src/components/steps/summative_hub/teacher_report/deep_dives/EscapeRoomCipherDeepDive.tsx`: Bespoke lock-by-lock cipher decryption, bottleneck analysis, and escape velocity metrics (<65 lines).
+- `src/components/steps/summative_hub/Step4SummativeContainer.tsx`: Step 4 container configured to default to 'performance_tasks' (20-Min Performance Tasks) tab (<85 lines).
+- `src/components/steps/summative_hub/summative_quiz/QuizSubTabBar.tsx`: Quiz mode navigation tab bar updated to feature 'Battle Quiz' (<70 lines).
+- `src/components/steps/summative_hub/teacher_report/deep_dives/`: Individual mode deep-dive cards for Plain Quiz, Ladder, Imposter, GridLock, Battle Quiz, Don't Say It, and Escape Room (<80 lines each).
+
+## Step 6 Slide & Media Layout Editor Registry
+- `src/features/step6/types/slideTypes.ts`: TypeScript contracts for `SlideItem`, `SlideElement` (text, image, video, poll), `SpeakerNotesData`, `CanvasTheme`, and `SlideDeckHistory` (<60 lines).
+- `src/features/step6/constants/punSubtitleGenerator.ts`: Cheerful British educational pun generator for subject-tailored presentation title slides (<60 lines).
+- `src/features/step6/constants/defaultSlideDeck.ts`: Pure generator creating initial slide deck with Pun Title slide, Aims & Outcomes slide, Warm-up retrieval template, and 1 slide per teaching chunk (<98 lines).
+- `src/features/step6/hooks/slideDeckOperations.ts`: Immutable helper functions for reordering and merging slide decks (<60 lines).
+- `src/features/step6/hooks/useSlideDeckState.ts`: Isolated React state hook managing deck items, active slide index, 20-step undo/redo buffer, and reordering/merging handlers (<96 lines).
+- `src/features/step5/components/Step5ToStep6Navigation.tsx`: Teacher-friendly transition card and "Continue to Slide & Media Layout Editor" button (<50 lines).
+- `src/features/step6/components/SlideDeckHeader.tsx`: Stepper, slide count badge, and undo/redo action header (<75 lines).
+- `src/features/step6/components/SlideThumbnailList.tsx`: Slide list with move up/down, merge, delete, and add controls (<96 lines).
+- `src/features/step6/components/ActiveSlideCanvas.tsx`: 16:9 interactive canvas preview with editable titles and content cards (<85 lines).
+- `src/features/step6/components/SpeakerNotesDrawer.tsx`: Collapsible drawer with teacher delivery script, timing in minutes, and pedagogical tips (<80 lines).
+- `src/features/step6/components/Step6Container.tsx`: Master coordinator component for Step 6 slide editing (<90 lines).
+- `src/features/step6/components/sidebar/SlideThumbnailCard.tsx`: Visual slide thumbnail card with drag handle, active status, timing cues, and merge drop overlay (<90 lines).
+- `src/features/step6/components/sidebar/SlideDragDropList.tsx`: Native HTML5 drag-and-drop vertical reordering and drop-to-merge detection engine (<95 lines).
+- `src/features/step6/components/sidebar/SlideListControls.tsx`: Buttons for Add Blank Slide, Duplicate Slide, and Delete Slide (<60 lines).
+- `src/features/step6/components/sidebar/LeftSlideSidebar.tsx`: Dedicated sidebar container coordinating slide navigation, reordering, and merge actions (<60 lines).
+- `src/features/step6/components/sidebar/index.ts`: Barrel export for sidebar components (<10 lines).
+- `src/features/step6/components/canvas/CanvasTextElement.tsx`: Direct inline retyping, click-to-edit, and auto-fit font scaling preventing box overflow (<80 lines).
+- `src/features/step6/components/canvas/CanvasMediaElement.tsx`: Image and video container with corner resize handles and dragging placement (<85 lines).
+- `src/features/step6/components/canvas/CanvasToolbar.tsx`: Top canvas bar with Undo/Redo, Layer Ordering (Bring to Front/Send to Back), and Aspect Ratio selector (16:9/4:3/A4) (<90 lines).
+- `src/features/step6/components/canvas/canvasUtils.ts`: Auto-fit font scaling calculator, layer reordering logic, and aspect ratio classes (<45 lines).
+- `src/features/step6/components/canvas/useCanvasInteraction.ts`: Lightweight DOM pointer interaction hook handling drag positioning, corner scaling, and snap-to-grid (<95 lines).
+- `src/features/step6/components/canvas/ActiveSlideCanvas.tsx`: Main interactive slide canvas assembling text/media elements with alignment grid and selection focus (<97 lines).
+- `src/features/step6/components/canvas/index.ts`: Barrel export for canvas components (<10 lines).
+- `src/features/step6/components/notes/TeacherScriptBox.tsx`: "Dupe-the-Class" spoken hook line, spoken script, and step-by-step delivery cues (<60 lines).
+- `src/features/step6/components/notes/GlossarySection.tsx`: Key vocabulary terms and pupil-friendly definitions manager (<60 lines).
+- `src/features/step6/components/notes/FurtherReadingSection.tsx`: Extension reading list and scholarly references (<45 lines).
+- `src/features/step6/components/notes/GlossaryFurtherReading.tsx`: Composite container for vocabulary glossary and bibliography (<25 lines).
+- `src/features/step6/components/notes/MisconceptionRetrievalCues.tsx`: Common student misconception warnings, spaced retrieval cues, and pedagogical tips (<90 lines).
+- `src/features/step6/components/notes/SpeakerNotesPanel.tsx`: Tabbed panel located below the canvas synchronising notes into active slide state in real time (<90 lines).
+- `src/features/step6/components/notes/index.ts`: Barrel export for notes panel components (<10 lines).
+- `src/features/step6/components/toolbar/BackgroundPatternPicker.tsx`: Graph paper, chalkboard, dot matrix, and parchment canvas texture presets (<55 lines).
+- `src/features/step6/components/toolbar/ThemeColorPicker.tsx`: Color pickers for background, text, and accent colors with 1-click global apply (<90 lines).
+- `src/features/step6/components/toolbar/VideoTrimControls.tsx`: Start/stop playback segment timestamps for video elements (<80 lines).
+- `src/features/step6/components/toolbar/AiMediaVaultDrawer.tsx`: Drawer for 1-click insertion of AI-suggested diagrams and video clips (<85 lines).
+- `src/features/step6/components/canvas/SlideHeaderTitleInput.tsx`: Slide title & subtitle input block with rainbow accent and archetype icon (<40 lines).
+- `src/features/step6/components/canvas/SlideTextTranslatorModal.tsx`: 1-click multi-language dual-language scaffolding modal (Spanish, French, Polish, German, etc.) (<85 lines).
+- `src/features/step6/components/toolbar/SlideTransitionPicker.tsx`: Slide transition effects (Fade, Slide, Zoom) and Rainbow Header styling (<70 lines).
+- `src/features/step6/components/toolbar/tabs/EditTab.tsx`: Rainbow letter generator, text highlighter, `{student_name}` live tag, and school logo crest uploader (<96 lines).
+- `src/features/step6/components/toolbar/tabs/MediaTab.tsx`: Shape mask crop, drop shadow, floor reflection, opacity slider, and countdown timers (<96 lines).
+- `src/features/step6/components/toolbar/tabs/AnimationsTab.tsx`: Page transitions (Fade, Slide, Zoom, Flip) and element animation sequence ordering (<88 lines).
+- `src/features/step6/components/toolbar/tabs/DiagramsTab.tsx`: 1-click SVG diagram templates (Venn Diagram, Timeline, 2x2 Matrix, Pyramid) (<75 lines).
+- `src/features/step6/components/toolbar/RightEditorToolbar.tsx`: 4-tab customisation suite shell displaying one dedicated tab at a time (<85 lines).
+- `src/features/step6/components/canvas/TableOfContentsAims.tsx`: Auto-generates clickable concept jump links on Aims slides (<40 lines).
+- `src/features/step6/components/canvas/DeckTranslatorControl.tsx`: Top bar whole-deck translator for 8 major school languages (<75 lines).
+- `src/features/step6/components/canvas/deckTranslationHelper.ts`: Multi-language dictionary and whole-deck translation mapping (<50 lines).
+- `src/features/step6/components/canvas/YoutubeLinkOverlay.tsx`: Clickable source video link overlay badge for YouTube media elements (<30 lines).
+- `src/features/step6/components/toolbar/DyslexiaTypographyPicker.tsx`: Accessible typography presets and 1-click dyslexia mode with 1.65x line height (<70 lines).
+- `src/features/step6/components/toolbar/ReadingLevelToggle.tsx`: 1-click differentiated reading level tiers (foundational, core, stretch) (<65 lines).
+- `src/features/step6/components/toolbar/index.ts`: Barrel export for toolbar components (<10 lines).
+- `src/features/step6/components/poll/CanvasPollElement.tsx`: Adaptive question and voting cards (A-D, 1-5 scale) with teacher answer reveal (<80 lines).
+- `src/features/step6/components/poll/PollControls.tsx`: Polling format selector, correct answer picker, and options editor (<75 lines).
+- `src/features/step6/components/poll/index.ts`: Barrel export for polling components (<5 lines).
+- `src/features/step6/components/canvas/PaceTimelineBar.tsx`: Lesson delivery timeline and pacing progress indicator (<50 lines).
+- `src/features/step6/components/canvas/CognitiveLoadBadge.tsx`: Pedagogical guard against excessive bullets, words, or media (>6 bullets, >100 words, >2 media) (<50 lines).
+- `src/features/step6/components/canvas/ImageCropMaskModal.tsx`: Direct framing and aspect ratio masking (square, circle, 16:9, rounded) (<60 lines).
+- `src/features/step6/components/canvas/CanvasShapeElement.tsx`: Geometric shapes (rounded card, circle, callout, sticky note) with inline text, fill, and borders (<55 lines).
+- `src/features/step6/components/canvas/CanvasTableElement.tsx`: Interactive multi-cell data matrix table with editable headers and rows (<85 lines).
+- `src/features/step6/components/canvas/shapeUtils.ts`: CSS helper utilities for geometric shape classes (<25 lines).
+- `src/features/step6/components/canvas/CanvasAlignmentGuides.tsx`: Dynamic red/cyan magnetic snapping guidelines (<30 lines).
+- `src/features/step6/components/scaffolding/FillInBlanksControl.tsx`: Converts highlighted text or keywords into fill-in-the-blank underscore lines for pupil worksheets (<65 lines).
+- `src/features/step6/components/toolbar/tabs/edit/EditSubTabHeader.tsx`: Glossy 3D folder tab navigation (Visual Aids, Teaching, Joy Dock) in warm amber app theme (<50 lines).
+- `src/features/step6/components/toolbar/tabs/edit/VisualAidsTypography.tsx`: Format painter, dyslexia fonts, case converter, and soft text shadow (<75 lines).
+- `src/features/step6/components/toolbar/tabs/edit/VisualAidsStyling.tsx`: Custom bullets, spacing sliders, and rainbow text (inline & box) (<65 lines).
+- `src/features/step6/components/toolbar/tabs/edit/VisualAidsTab.tsx`: Modular container for Visual Aids tools (<30 lines).
+- `src/features/step6/components/toolbar/tabs/edit/TeachingScaffoldingTools.tsx`: 1-click fill-in-the-blanks, reading level differentiator, auto-bold vocabulary (<40 lines).
+- `src/features/step6/components/toolbar/tabs/edit/SchoolCrestWatermarkControl.tsx`: Merged School Crest / Watermark control with WebP thumbnail preview, multi-slide application, and opacity slider (<85 lines).
+- `src/features/step6/components/toolbar/tabs/edit/TeachingPersonalisationTools.tsx`: Pupil personalisation {student_name} and School Crest / Watermark embed (<55 lines).
+- `src/features/step6/utils/imageCompressor.ts`: Client-side WebP image compression to lightweight thumbnail data URIs (<50 lines).
+- `src/features/step6/components/toolbar/tabs/edit/TeachingTab.tsx`: Modular container for Teaching tools (<30 lines).
+- `src/features/step6/components/toolbar/tabs/edit/JoyDockSoundAndStamps.tsx`: Soundboard effects, confetti burst, fact stamps, fortune cookies (<55 lines).
+- `src/features/step6/components/toolbar/tabs/edit/JoyDockInteractiveModes.tsx`: Pupil spin-wheel, noise meter, meme generator, spotlight beam, disco mode (<70 lines).
+- `src/features/step6/components/toolbar/tabs/edit/JoyDockTab.tsx`: Embedded Joy Dock inside Edit tab (<75 lines).
+- `src/features/step6/components/toolbar/tabs/edit/index.ts`: Barrel export for edit subtabs (<15 lines).
+- `src/features/step6/components/toolbar/tabs/EditTab.tsx`: Modular container hosting Visual Aids, Teaching, and Joy Dock folder subtabs (<55 lines).
+- `src/features/step6/components/joy/SoundboardAndConfetti.tsx`: Web Audio API synthesised sound effects (applause, boom, horn, drumroll) and 1-click confetti burst overlay (<85 lines).
+- `src/features/step6/components/joy/SpinWheelAndNoiseMeter.tsx`: Random pupil name-picker spin wheel and classroom noise level meter (<85 lines).
+- `src/features/step6/components/joy/SpotlightAndDiscoMode.tsx`: Cursor-following flashlight spotlight overlay and celebration disco borders (<60 lines).
+- `src/features/step6/components/joy/StampsAndFortuneCookie.tsx`: "BUSTED!" and "VERIFIED FACT!" canvas stamps plus daily wisdom fortune cookie (<85 lines).
+- `src/features/step6/components/joy/ClassroomMemeModal.tsx`: Educational meme generator template picker and slide stamper (<85 lines).
+- `src/features/step6/components/joy/ClassroomJoyDock.tsx`: Floating collapsible bottom engagement dock (<75 lines).
+- `src/features/step6/components/joy/index.ts`: Barrel export for joy components (<10 lines).
+- `src/features/step6/components/toolbar/tabs/MediaTab.tsx`: Media inspector featuring Image and Video subtabs with identical theme to EditSubTabHeader (<60 lines).
+- `src/features/step6/components/toolbar/tabs/media/MediaSubTabHeader.tsx`: Signature amber gradient subtab header for Image and Video (<50 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageSubTab.tsx`: Image formatting drawer suite for background remover, captions, search, drop shadows, adjustments, corners/borders, and timers (<95 lines).
+- `src/features/step6/components/toolbar/tabs/media/imageBackgroundRemovalUtils.ts`: Pure HTML5 canvas color-distance thresholding algorithm for 1-click in-memory background removal (<60 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageBackgroundRemoverControls.tsx`: Cut sensitivity tolerance slider, 1-click background cut button, and restore original button (<85 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageCaptionAndLinkControls.tsx`: Auto-caption generator, accessibility alt-text, and clickable hyperlink tester (<85 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageInsertUrlControls.tsx`: Direct image URL paste input with instant preview and Add/Replace buttons (<85 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageSearchPickerControls.tsx`: Google Slides-style Photos, GIFs, and Stickers search library (<95 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageTransformControls.tsx`: Flip Horizontal/Vertical, Aspect Ratio Lock, and Replace Image file picker (<80 lines).
+- `src/features/step6/components/canvas/CanvasMediaContent.tsx`: Pure media content renderer handling video, image transforms, alt text, and clickable hyperlink badge (<50 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageBlurControls.tsx`: Blur presets (Vignette, Tilt-shift, Radial, Aspect Fill, Surface, Lens, Motion), strength slider, and reset button (<85 lines).
+- `src/features/step6/components/canvas/imageBlurUtils.ts`: Pure CSS mask and filter calculator for vignette, tilt-shift, radial, aspect fill, and lens blurs (<65 lines).
+- `src/features/step6/components/canvas/MediaBlurOverlays.tsx`: Renders blurred background fills and gradient mask overlays for creative depth effects (<48 lines).
+- `src/features/step6/types/timerTypes.ts`: Timer modes, clock formats, and chime sound types (<25 lines).
+- `src/features/step6/utils/classroomAudioChimes.ts`: Web Audio API synthesiser for start chimes, 5-second countdown ticks, and end alarms (<80 lines).
+- `src/features/step6/components/canvas/timers/DigitalClockFace.tsx`: 4 animated digital clock styles (Neon, Radial Ring, Horizon Bar, Retro Flip) (<85 lines).
+- `src/features/step6/components/canvas/timers/AnalogClockFace.tsx`: 4 animated analogue clock styles (Wall Clock, Iris Sweeper, Stopwatch, Hourglass) (<85 lines).
+- `src/features/step6/components/canvas/timers/DateCountdownFace.tsx`: Target date & time milestone countdown (<75 lines).
+- `src/features/step6/components/canvas/timers/ClassroomTimersClockSelector.tsx`: Selector for 4 digital vs 4 analogue clock styles (<75 lines).
+- `src/features/step6/components/canvas/timers/ClassroomTimersSoundControl.tsx`: Chime sound picker and test preview control (<50 lines).
+- `src/features/step6/components/canvas/ClassroomTimersModal.tsx`: Pedagogical activity timer and milestone countdown modal (<90 lines).
+- `src/features/step6/components/canvas/CanvasTimerElement.tsx`: Interactive countdown clock with live play/pause, time-elapsed progress bar, and "Time Up" chime alert (<85 lines).
+- `src/features/step6/components/canvas/EditorCanvasColumn.tsx`: Center canvas column extracting slide insert bar and canvas (<85 lines).
+- `src/features/step6/components/Step6EditorModals.tsx`: Modular container for Step 6 modals supporting timers and AI Suggested Videos pop-culture category browser (<50 lines).
+- `src/features/step6/components/Step6EditorGrid.tsx`: 3-column slide editor grid strictly under 95 lines with video modal trigger (<95 lines).
+- `src/features/step6/types/videoFeatureTypes.ts`: Types for video checkpoints, bookmarks, and configuration (<40 lines).
+- `src/features/step6/utils/videoLinkValidator.ts`: YouTube ID extractor, Shorts detector, snapshot frame generator, and privacy embed builder (<75 lines).
+- `src/features/step6/components/toolbar/tabs/media/video/VideoPlaybackMiniInspector.tsx`: Google Slides-style live video playback mini inspector with preview, triggers, audio toggle, and audition cut test (<90 lines).
+- `src/features/step6/components/toolbar/tabs/media/video/VideoTrimTimeInputs.tsx`: Start and End time trimming inputs with live calculated segment duration badge (<75 lines).
+- `src/features/step6/components/toolbar/tabs/media/video/VideoInsertCard.tsx`: Dedicated YouTube/Web and Google Drive video insertion card with live preview and add button (<90 lines).
+- `src/features/step6/utils/chunkVideoResolver.ts`: Resolves parent chunk video attachments and global lesson video resources for any child slide (<80 lines).
+- `src/server/youtubeVerifier.ts`: Verifies candidate YouTube video IDs concurrently using YouTube oEmbed endpoint to discard dead links (<65 lines).
+- `src/server/vaults/mediaScenesPromptVault.ts`: Protected architectural vault locking the canonical Gemini curriculum scenes prompt (<75 lines).
+- `src/server/mediaScenesHandler.ts`: Requests 15 ranked candidate scenes from vault prompt and returns verified live videos (<30 lines).
+- `src/components/steps/video_modal/hooks/useCategorySceneQueue.ts`: Session memory store and background queue retaining verified scenes across Step 3 and Step 6 with dynamic title re-sync (<95 lines).
+- `src/features/step6/components/toolbar/tabs/media/video/VideoSourceAndSuggestions.tsx`: Active video URL input with live link readiness badge and trigger for the AI Suggested Videos popup (<55 lines).
+- `src/features/step6/components/toolbar/tabs/media/video/VideoCheckpointsControls.tsx`: Auto-pause question checkpoints list, Use Current Time button, and Auto-Flow export toggle (<90 lines).
+- `src/features/step6/components/toolbar/tabs/media/video/VideoAutoFlowExportPreview.tsx`: Multi-slide Google Slides video slicing and question auto-flow breakdown preview (<75 lines).
+- `src/features/step6/components/toolbar/tabs/media/video/VideoAspectAndSpeedControls.tsx`: 9:16 Shorts wrapper and playback speed governor (<85 lines).
+- `src/features/step6/components/toolbar/tabs/media/video/VideoStageAndLoopControls.tsx`: Video Stage Mode screen dimmer (active by default), micro-loop segment, and timestamp jump bookmarks (<95 lines).
+- `src/features/step6/components/toolbar/tabs/media/video/VideoPosterAndPrivacyControls.tsx`: Poster freeze-frame picker, distraction shield, and forced subtitles (<85 lines).
+- `src/features/step6/components/canvas/video/CanvasInteractiveVideoPlayer.tsx`: Interactive video element with auto-pause question cards, Shorts vertical framing, and poster covers (<95 lines).
+- `src/features/step6/components/toolbar/tabs/media/VideoPlaybackControls.tsx`: Video URL sources, autoplay, loop, mute, and printed handout QR code toggles (<85 lines).
+- `src/features/step6/components/toolbar/tabs/media/VideoFrameControls.tsx`: Video cinema corners, elevation shadows, and monitor bezel controls (<80 lines).
+- `src/features/step6/components/toolbar/tabs/media/VideoSubTab.tsx`: Video inspector with player insertion, playback settings, and screen framing drawers (<85 lines).
+- `src/features/step6/components/toolbar/tabs/media/MediaCollapsibleDrawer.tsx`: Reusable collapsible drawer wrapper with dynamic status badge, chevron rotation, and expand/collapse transitions (<50 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageShadowControls.tsx`: Multi-preset drop shadow and elevation controls with distance, blur, opacity, and tint colour pickers (<85 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageAdjustmentControls.tsx`: Image tone and filter adjustments with Brightness, Contrast, Saturation sliders and pedagogical presets (<80 lines).
+- `src/features/step6/components/toolbar/tabs/media/ImageBorderCornerControls.tsx`: Corner rounding and frame border width/colour controls (<80 lines).
+- `src/features/step6/services/animationExportMapper.ts`: Helper mapping web-canvas effects to native PowerPoint/Google Slides equivalents (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ExitAnimationControls.tsx`: Element exit animations (Fade Out, Fly Out, Shrink, Drop Out) with export badges (<60 lines).
+- `src/features/step6/components/toolbar/tabs/anim/WholeDeckAnimationThemeControls.tsx`: 1-click whole-deck animation theme applier (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/NoveltyFunEffectControls.tsx`: Special classroom effects (Roll In/Out, Disco Strobe, Lightning Strike, Smoke Bomb) with export badges (<60 lines).
+- `src/features/step6/components/toolbar/tabs/anim/Interactive3DControls.tsx`: 3D Focus Zoom & Pan (Prezi style) and Interactive 3D Card Flip controls with export badges (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/FlowingPathwaysControls.tsx`: Custom motion paths and flowing diagram pathway controls with export badges (<60 lines).
+- `src/features/step6/components/toolbar/tabs/anim/BasicTransitionEntranceControls.tsx`: Page transition styles and element entrance animation selectors (<70 lines).
+- `src/features/step6/components/toolbar/tabs/anim/MotionAndEmphasisControls.tsx`: Emphasis controls (Pulse, Spin, Grow/Shrink, Physics Elastic Bounce) with export indicators (<60 lines).
+- `src/features/step6/components/toolbar/tabs/anim/MagicMorphAndStaggerControls.tsx`: Magic Morph shape transitions and Staggered Group waterfall delays (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/AnimationPainter.tsx`: 1-click button to copy animation properties from a selected element and stamp them onto another element (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/AnimationOrderPanel.tsx`: Reorderable sequence list showing element animation order (1st, 2nd, 3rd) on the active slide (<95 lines).
+- `src/features/step6/components/toolbar/tabs/anim/TriggerAndTimingControls.tsx`: Trigger pickers (On Click, With Previous, After Previous) plus Speed and Delay sliders (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/BulletBuildControl.tsx`: Toggle to reveal text list items one click at a time during classroom projection (<60 lines).
+- `src/features/step6/types/animationTypes.ts`: Data types extracting slide timeline rules including Page Entry (Step 1) and Page Exit (Last Step) (<85 lines).
+- `src/features/step6/components/canvas/AnimationTimelineRail.tsx`: Warm-themed bottom canvas timeline rail displaying square chips with page transitions and element animations (<85 lines).
+- `src/features/step6/components/canvas/AnimationTimelineChip.tsx`: Compact square timeline chip (`w-14 h-14`) with distinct soft indigo styling for page transitions vs warm cream for element rules (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ActiveElementRulesList.tsx`: Clean list of active rules for selected elements with 1-click delete buttons (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/SelectedElementRulesCard.tsx`: Applied Rules Summary Card for selected elements with 1-click remove chips and PowerPoint export badges (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ActivePageRulesCard.tsx`: Active Page Rules Card displaying active page entry/exit transitions with 1-click remove chips and PowerPoint export badges (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementContextualAnimationInspector.tsx`: Contextual animation inspector blending Option C and B (<70 lines).
+- `src/features/step6/utils/animationCssUtils.ts`: Computes animation CSS classes, keyframes, and max steps for page entry, element steps, and live page exit transitions (<75 lines).
+- `src/features/step6/utils/transitionKeyframeMaps.ts`: Dedicated lookup tables mapping 40+ transition effects to entry and exit CSS keyframes (<65 lines).
+- `src/features/step6/utils/transitionStyleMap.ts`: Generates CSS animation styling, dynamic durations, and cubic-bezier curves for transitions (<30 lines).
+- `src/features/step6/components/canvas/SpecialClassroomKeyframesStyle.tsx`: CSS keyframes for classroom, sci-fi, and wild 60fps transitions (<85 lines).
+- `src/features/step6/components/canvas/PresenterFullscreenModal.tsx`: Modular live presentation modal managing presentation state and auto-advance (<80 lines).
+- `src/features/step6/components/canvas/presenter/PresenterHeaderBar.tsx`: Presenter header bar with slide index, timer, notes toggle, and close (<50 lines).
+- `src/features/step6/components/canvas/presenter/PresenterSlideStage.tsx`: 16:9 interactive presenter slide canvas with page transition styles (<90 lines).
+- `src/features/step6/components/canvas/presenter/PresenterBottomControls.tsx`: Navigation controls for stepping through animations and slides (<40 lines).
+- `src/features/step6/utils/slideSelectionUtils.ts`: Strictly retrieves selected element by ID, ensuring undefined when nothing is selected on canvas (<20 lines).
+- `src/features/step6/components/canvas/ExitClassroomKeyframesStyle.tsx`: CSS keyframes for classroom, sci-fi, and wild 60fps exit transitions (<95 lines).
+- `src/features/step6/components/canvas/NoveltyTransitionsKeyframes.tsx`: Keyframes for Morph, Crumble, Rip, Honeycomb, Vortex, Blinds, Confetti, and Eclipse (<95 lines).
+- `src/features/step6/hooks/usePresenterKeyboardNav.ts`: Hook for presentation keyboard arrow and spacebar navigation (<25 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/LaserBeamOverlay.tsx`: Cinematic CRT curved glass scanline beam with flickering phosphor-green retro grid revealed by neon-cyan laser sweep (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/MatrixRainOverlay.tsx`: Cinematic dual-layer Matrix digital code rain with background blur, foreground neon glow, and horizontal glitch noise pulses (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/ThermalHeatmapOverlay.tsx`: Cinematic infrared thermographic melting wash with expanding boiling liquid nodes, radiant core shockwaves, and telemetry warning HUD (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/CyberpunkPortalOverlay.tsx`: Cinematic high-energy plasma vortex portal with spiral warp background filter, electric arc particles, and center twist core (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/HologramBeamOverlay.tsx`: Cinematic hologram beam teleport with scanline horizontal jitter, chromatic aberration splitting, upward-soaring grid particles, and dematerialization column (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/PaperRipOverlay.tsx`: Realistic tearing paper transition with deckled jagged torn-edge polygons, left/right curling rotation, and scattered fibers (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/honeycombCoords.ts`: Hexagonal geometric tessellation coordinate and radial wave delay generator (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/HoneycombGridOverlay.tsx`: Authentic interlocking hexagonal honeycomb grid overlay with amber/honey gradient tiles and radial cascading bloom dissolve (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/WindowBlindsOverlay.tsx`: Physical architectural vertical window blinds overlay with 12 parallel linen louvres, top headrail, pull wand, and synchronized 3D perspective slat rotation (<95 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/HorizontalBlindsOverlay.tsx`: Authentic horizontal Venetian blinds overlay with 12 horizontal slats, retractable ladder tape cords, wooden pull acorns, and clean root fadeout (<98 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/gridTileData.ts`: 6x4 matrix coordinate generator with diagonal wave delays for 3D grid tile transitions (<30 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/GridTileFlipOverlay.tsx`: Authentic 24-tile 3D flipping mosaic grid overlay with specular glint sweeps, corner registration dots, and clean perspective flip (<98 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/confettiPhysics.ts`: High-density multi-cannon trajectory & 3D ballistic particle generator for 160+ metallic ribbons, stars, discs, and streamers (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/ConfettiBurstOverlay.tsx`: Explosive dual confetti cannon blast with angled brass muzzles, shockwave rings, and 160 fluttering 3D foil particles (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/WaterWaveOverlay.tsx`: Multi-layered vector fluid water wave surge overlay with 3 overlapping waves, 12 floating refraction bubbles, and 4 expanding elliptic ripple rings (<95 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/CellMitosisOverlay.tsx`: Biological mitosis cell division simulation featuring an organic SVG metaball gooey-filter cytoplasm cleavage furrow, centriole spindle poles, and separating chromosome sister chromatids (<70 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/VolcanicAshOverlay.tsx`: Authentic volcanic ash cloud-burst simulation with primary fiery magma lava jets, shockwaves, billowing ash mushroom clouds, and flying incandescent embers (<95 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/ChalkboardEraserOverlay.tsx`: Interactive felt chalkboard eraser sweeping Slide 1 to reveal Slide 2 with drifting chalk dust particles (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/RollerScreenOverlay.tsx`: Vinyl projection canvas rolling upwards with mechanical spring recoil and visual frame bounce (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/StickyNoteOverlay.tsx`: 3D paper curl peel with soft ambient occlusion shadows and static tension ripples (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/ClassroomDoorOverlay.tsx`: 3D double oak doors swinging open with expanding golden light leaks and volumetric shine (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/GoldStarOverlay.tsx`: Gold metallic stamp reward star descent with high-impact screen shake, radial sparks, and specular shine (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/TextbookFlipOverlay.tsx`: Textbook page turn with three translucent staggered paper flips and center fold shadows (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/ZipperSplitOverlay.tsx`: Interlocking brass teeth split overlay with sliding zipper puller and metal glare shine (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/FadeCinematicOverlay.tsx`: Camera depth-of-field focus pull transition with dynamic lens blur and subtle chromatic aberration (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/SlideCinematicOverlay.tsx`: Directional inertia slide transition with scaling motion-blur and physical velocity simulation (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/DissolveCinematicOverlay.tsx`: Sweeping volumetric light-leaks bloom transition expanding from the viewport center (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/ZoomCinematicOverlay.tsx`: Exponential camera zoom transition with high-speed outer edge tunnel radial blur warp (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/FlipCinematicOverlay.tsx`: 3D perspective card flip with specular glare reflection sweeps and fuzzy ambient drop shadows (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/WipeCinematicOverlay.tsx`: Frosted glass edge wipe transition with refractive saturation, blur, and glare line shimmer (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/MorphMagicOverlay.tsx`: Organic vector shape morphing transition merging liquid mercury-like elements utilizing SVG gooey-metaball filters (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/PaperCrumbleOverlay.tsx`: Physical paper mesh crumble simulation collapsing along realistic crease vectors and falling with gravity (<60 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/VortexTwirlOverlay.tsx`: Rapid twirl transition twisting the slide 360 degrees into a central vortex covered by centrifugal zoom blur lines (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/SolarEclipseOverlay.tsx`: Dark cosmic alignment transition featuring a glowing solar corona, a moving dark moon, and a perfect diamond ring lens flare (<60 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/SpiralSpinOverlay.tsx`: High-velocity z-axis rotational scaling transition with depth of field blur and kinetic motion smears (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/BlackHoleOverlay.tsx`: Gravitational lensing transition sucking the slide into a central black hole horizon using a glowing accretion disk and Einstein ring (<55 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/ComicSlamOverlay.tsx`: High-impact cartoon K-A-P-O-W burst transition with explosive jagged Speech Bubbles, halftone dot sprays, and screen shake (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/VhsRewindOverlay.tsx`: Retro VHS analog magnetic tape decay transition with vertical tracking skew lines and horizontal noise bands (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/QuantumSplitOverlay.tsx`: Parallel universe split transition with rapidly flickering reality swapping and atomic particle clouds (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/TransitionVisualOverlay.tsx`: Central visual overlay switchboard router connecting standard, classroom, and wild transitions (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/preview/TransitionSlideCards.tsx`: Dual-slide cards with 0.5s pre-transition pause on Slide 1 (<70 lines).
+- `src/features/step6/components/toolbar/tabs/anim/LiveLessonTransitionsModal.tsx`: Dual-column modal gallery with live motion preview stage, search, and whole-deck application (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/TransitionPreviewStage.tsx`: Left-column 16:9 2-slide interactive motion stage displaying live transitions between Slide 1 and Slide 2 (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/TransitionCategoryGrid.tsx`: Right-column search and category grid for 40+ transitions supporting both entry and exit tabs (<85 lines).
+- `src/features/step6/components/canvas/TableOfContentsAims.tsx`: Interactive clickable Table of Contents directory for Aims & Outcomes slides (<85 lines).
+- `src/features/step6/components/canvas/LogoManagerControls.tsx`: Lock and opacity controls with auto-link indicator for school logos (<55 lines).
+- `src/features/step6/components/canvas/SlideFooterMetaBar.tsx`: Bottom meta bar with date, title, and slide number (<35 lines).
+- `src/features/step6/components/canvas/AnimationKeyframesStyle.tsx`: CSS keyframe definitions for smooth 60fps slide transitions (Slide Right, Slide Left, Slide Down, Zoom, Flip) (<35 lines).
+- `src/features/step6/components/canvas/imageStyleUtils.ts`: Computes drop shadow, CSS filters, and corner radius (<85 lines).
+- `src/features/step6/components/toolbar/tabs/MediaAvatarsExtension.tsx`: True/False, Thumbs Up/Down mascot reaction avatars (<60 lines).
+- `src/features/step6/components/scaffolding/ReadingLevelDifferentiator.tsx`: 1-click text simplification and scaffolding for Foundation, Core, and Higher reading tiers (<75 lines).
+- `src/features/step6/components/scaffolding/AutoBoldVocabulary.tsx`: Scans slide text and automatically bolds Tier 2/3 academic subject keywords (<75 lines).
+- `src/features/step6/components/scaffolding/TeachingAidsPanel.tsx`: Container panel placing scaffolding tools in the right-side editor sidebar (<45 lines).
+- `src/features/step6/components/scaffolding/index.ts`: Barrel export for scaffolding components (<10 lines).
+- `src/features/step6/components/canvas/format/FontAndCaseControls.tsx`: Dyslexia font toggle (OpenDyslexic) and Case Converter (UPPER/lower/Title) (<65 lines).
+- `src/features/step6/components/canvas/format/QuickAlignmentControls.tsx`: 1-click text and block alignment controls (left, center, right) (<40 lines).
+- `src/features/step6/components/canvas/format/StyleAndShadowControls.tsx`: Soft text shadow, neon glow, and Format Painter (copy/paste style) (<75 lines).
+- `src/features/step6/components/canvas/format/SpacingAndBulletControls.tsx`: Line spacing, letter spacing sliders, and custom bullet icons (dots, checks, stars, arrows, pins) (<90 lines).
+- `src/features/step6/components/canvas/format/ContextualFormatBar.tsx`: Floating contextual text formatting bar above selected canvas text boxes (<60 lines).
+- `src/features/step6/components/canvas/format/index.ts`: Barrel export for format controls (<10 lines).
+- `src/features/step6/components/canvas/GoogleSlidesBoundingBox.tsx`: Exact Google Slides 8-point blue bounding box with 8 square handles, rotation pin, and border move edges (<60 lines).
+- `src/features/step6/components/canvas/GoogleSlidesCropOverlay.tsx`: Exact Google Slides in-place canvas cropping overlay with black L-shaped corner and edge crop handles (<75 lines).
+- `src/features/step6/components/canvas/cropUtils.ts`: Image bounds calculator with applyCropToElementBounds and fitImageElementAspect to collapse selection boxes tightly around cropped image dimensions (<55 lines).
+- `src/features/step6/components/canvas/resizeHandler.ts`: 8-way directional resize calculator for top, bottom, left, right, and corner nodes (<50 lines).
+- `src/features/step6/components/canvas/format/StyleAndShadowControls.tsx`: Soft shadow, neon glow, and format painter controls applying directly to highlighted/selected text words or whole element (<90 lines).
+- `src/features/step6/components/canvas/richTextFormatter.ts`: Selection tracking and inline formatting engine for bold, italic, underline, font, size, highlight, shadow, glow, and rainbow text with wrapCleanSpan to prevent nested font-size blocking (<96 lines).
+- `src/features/step6/components/canvas/format/QuickAlignmentControls.tsx`: 1-click snap alignment buttons (Top, Horizontal Centre, Vertical Middle, Bottom) (<60 lines).
+- `src/features/step6/components/canvas/toolbar/ToolbarSpacingAndBullets.tsx`: Bullets (dot, checkmark, star, arrow, lightbulb, pin) and spacing (line & letter spacing sliders) popup controls on the main tools menu (<90 lines).
+- `src/features/step6/components/canvas/toolbar/GoogleSlidesMasterToolbar.tsx`: Top formatting and editing toolbar matching Google Slides exactly (Undo, Redo, Pointer, Text, Shapes, Connectors, Fill, Border, Fonts, Size Stepper, Bold/Italic/Underline, Text Color, Highlight, Align, Bullets, Spacing, Link, Image Crop/Mask) (<100 lines).
+- `src/features/step6/types/visualAidEffectTypes.ts`: TypeScript contracts for curved text paths, sticker outlines, 3D blocks, ribbon text gradients, and canvas drawing strokes (<40 lines).
+- `src/features/step6/components/canvas/useCurvatureDrag.ts`: Direct canvas manipulation hook tracking mouse deltaY to calculate real-time arch/smile degree and update vector paths frame-by-frame (<65 lines).
+- `src/features/step6/components/canvas/GoogleSlidesBoundingBox.tsx`: 8-way resize handles, rotation stem, and glowing amber direct curvature node for live on-canvas bending (<60 lines).
+- `src/features/step6/components/canvas/wordart/generateCurvedBannerPng.ts`: Edge-to-edge SVG vector path engine spanning from x=15 to x=985 with no forced line chopping and dynamic font scaling (<60 lines).
+- `src/features/step6/components/canvas/CanvasTextElement.tsx`: Clean, rock-solid inline editable text element with 8-way handles and pure CSS visual effects (<65 lines).
+- `src/features/step6/components/canvas/textEffectStyles.ts`: Pure CSS generators for sticker die-cuts, 3D block extrusions, and ribbon text gradients (<55 lines).
+- `src/features/step6/components/canvas/htmlTextCleaner.ts`: Clean text node walker (`transformHtmlText`) and style sanitiser (`stripInlineStyles`) ensuring 100% of words in a text box receive effects uniformly without HTML tag corruption (<40 lines).
+- `src/features/step6/components/toolbar/tabs/edit/CurvedTextControls.tsx`: 1-click arc and wave text warping controls for banners and headers (<85 lines).
+- `src/features/step6/components/toolbar/tabs/edit/TextEffectsControls.tsx`: Visual aid controls for 3D block extrusion, die-cut sticker outlines, and ribbon text gradients (<90 lines).
+- `src/features/step6/components/canvas/drawing/CanvasDrawingRenderer.tsx`: SVG renderer for freehand pen ink and translucent highlighter strokes (<40 lines).
+- `src/features/step6/components/canvas/drawing/DrawingToolbarBadge.tsx`: Floating pen/highlighter selector, palette, stroke width, and clear buttons (<90 lines).
+- `src/features/step6/components/canvas/drawing/CanvasDrawingOverlay.tsx`: Interactive freehand stylus/mouse drawing layer for live annotations (<100 lines).
+- `src/features/step6/components/canvas/toolbar/ToolbarFormatButtons.tsx`: Modular format buttons (bold, italic, underline, colours, alignment, link, drawing toggle) (<50 lines).
+- `src/features/step6/components/canvas/toolbar/FontFamilyDropdown.tsx`: Dropdown selector for teacher-friendly typography (Arial, Inter, Comic Sans, OpenDyslexic, Caveat) (<55 lines).
+- `src/features/step6/components/canvas/toolbar/FontSizeStepper.tsx`: Plus/minus increment stepper and numeric font size input (<45 lines).
+- `src/features/step6/components/canvas/toolbar/ColorPickerButton.tsx`: Full palette popover for fill, border, text, and highlight colors (<75 lines).
+- `src/features/step6/components/canvas/toolbar/BorderControlsDropdown.tsx`: Border line thickness (1px-8px) and dash styling (solid, dashed, dotted) (<75 lines).
+- `src/features/step6/components/canvas/GoogleSlidesInsertBar.tsx`: Cleaned top canvas bar containing Add Logo, Stickers, Smart Layout, Deck Translator, and Present buttons (<45 lines).
+- `src/features/step6/components/canvas/LogoManagerModal.tsx`: Dedicated modal popover for uploading, replacing, locking, and adjusting watermark opacity of school logos across all slides (<90 lines).
+- `src/features/step6/components/canvas/StickerSearchModal.tsx`: Searchable emoji & sticker library modal (rocket, atom, books, lightbulb, heart, star, etc.) (<75 lines).
+- `src/features/step6/components/canvas/maskUtils.ts`: CSS clipPath mask calculator with dynamic coordinate transformation ensuring all shapes (circle, star, square, custom pencil) scale and reposition in real-time with on-canvas nodes (<70 lines).
+- `src/features/step6/components/canvas/CustomMaskModal.tsx`: Freehand pencil drawing modal rendering the exact sized and cropped image aspect ratio with live real-time SVG stroke visualization (<98 lines).
+- `src/features/step6/components/canvas/MaskEditOverlay.tsx`: On-canvas mask sizing and repositioning frame with 8 black contrast crop-style nodes and center move icon (<85 lines).
+- `src/features/step6/components/canvas/SlideLayoutCycleButton.tsx`: 1-click smart layout swapper cycling between side-by-side, stacked, and grid layouts (<60 lines).
+- `src/features/step6/components/canvas/CanvasPasteDropHandler.ts`: Desktop file drag-and-drop & clipboard paste handler for images and text (<75 lines).
+- `src/features/step6/components/canvas/ElementAnimationPicker.tsx`: Entrance animation sequences (Appear on Click, Fade In, Slide In, Zoom) (<55 lines).
+- `src/features/step6/components/canvas/PresenterFullscreenModal.tsx`: Full-screen delivery presentation modal with slide counter, timer, and notes HUD (<85 lines).
+- `src/features/step6/hooks/useEditorKeyboardShortcuts.ts`: Keyboard hotkeys for undo/redo (Ctrl+Z/Y), duplicate (Ctrl+D), delete, and nudging (<50 lines).
+- `src/features/step6/components/canvas/CanvasElementRenderer.tsx`: Modular dispatcher for text, shape, table, media, poll, pupil spin wheel, and spotlight elements (<90 lines).
+- `src/features/step6/components/joy/CanvasPupilWheelElement.tsx`: Slide-attached Pupil Selection Wheel element with interactive live spinning SVG wheel and static print/export note (<90 lines).
+- `src/features/step6/components/joy/CanvasApplauseMeterElement.tsx`: Slide-attached analogue decibel gauge element with live microphone volume listener and pivoting needle (<100 lines).
+- `src/features/step6/components/joy/CanvasMysteryBoxElement.tsx`: Slide-attached gamified gift box element with unboxing animation and secret content reveal (<85 lines).
+- `src/features/step6/components/joy/CanvasSpotlightElement.tsx`: Slide-attached interactive spotlight beam layer with mouse pointer and touch screen tracking (<90 lines).
+- `src/features/step6/components/joy/MysteryBoxModal.tsx`: Configuration pop-over modal for setting up secret questions, stretch challenges, or rewards (<70 lines).
+- `src/features/step6/components/notes/ZeroTechFallbackBox.tsx`: Dedicated physical fallback plan editor for Wi-Fi outages (<60 lines).
+- `src/features/step6/components/notes/AudioNarrationButton.tsx`: Browser Web Speech API audio narration player for spoken teacher scripts (<60 lines).
+- `src/features/step6/components/notes/EalTranslationHelper.tsx`: Multilingual glossing helper for top school languages (<65 lines).
+- `src/features/step6/components/toolbar/CurriculumIconPicker.tsx`: Subject symbol and educational icon search/picker for STEM/Humanities/Arts (<75 lines).
+- `src/features/step6/constants/slideIngestionHelpers.ts`: Ingestion helper creating separate thumbnails for individual diagrams, videos, and diagnostic polls (<75 lines).
+- `src/features/step6/components/Step6EditorGrid.tsx`: 3-column responsive editor grid layout separating sidebar, canvas, and toolbar (<90 lines).
+- `src/features/step6/hooks/useVideoAttachmentAction.ts`: Extracted video attachment handler for classroom slide video insertions (<35 lines).
+- `src/features/step6/components/Step6ToStep7Navigation.tsx`: Action bar at the bottom of Step 6 with status indicators and "Continue to Retrieval Bank & Launchpad" button (<60 lines).
+- `src/features/step6/services/slideSyncService.ts`: Auto-saves customized slides, canvas elements, and speaker notes directly into session storage and synchronises back to master lesson chunks (<60 lines).
+- `src/features/step6/hooks/useStep6Actions.ts`: Pure helpers for blank slide generation and auto-beautification layout (<35 lines).
+- `src/features/step6/utils/transitionPairingUtils.ts`: Mathematical pairing utility syncing entry and exit transitions across slides and entire deck (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/SlideTransitionLauncherCard.tsx`: Single-source transition launcher card showing active entry/exit statuses and launching the 40+ transitions modal (<75 lines).
+- `src/features/step6/hooks/usePresenterSlideTransition.ts`: Presenter delivery transition state hook running simultaneous outgoing and incoming slide transitions with zero black screen (<85 lines).
+- `src/features/step6/components/canvas/presenter/OutgoingSlideCard.tsx`: Outgoing slide container rendered simultaneously during transitions to prevent black void flashes (<45 lines).
+- `src/features/step6/services/googleSlidesExportMapper.ts`: Maps element animations to native Google Slides export definitions and labels (<35 lines).
+- `src/features/step6/components/toolbar/tabs/anim/FullSlideAnimationCanvasPreview.tsx`: Live full-canvas slide preview rendering all elements, sequence playback, and click-to-select (<100 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioTimelineTrack.tsx`: Full slide timeline track organizing all page elements with sequence shifting and export badges (<95 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementAnimationLauncherCard.tsx`: Element animation studio launcher card displaying current timing and launching the popup edit studio (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementAnimationStudioModal.tsx`: Pop-up edit studio modal matching page transitions with live preview stage, timing controls, and multiplier (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioHeader.tsx`: Modal header with title, subtitle, and close button (<35 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioPreviewStage.tsx`: Live preview stage rendering element animations, replay controls, and copy animation mechanism (<100 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioControls.tsx`: Granular category switcher, speed and delay sliders, triggers, and emphasis repeat multiplier (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioSliders.tsx`: Speed, delay, and emphasis repeat multiplier sliders (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioFooter.tsx`: Element studio footer status chips, clean-slate removal, and instant apply button (<50 lines).
+- `src/features/step6/constants/elementAnimationOptions.ts`: Constant lookup arrays for entrance, emphasis, and exit animation styles (<40 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioAdvancedControls.tsx`: Controls for focus dimming, easing curves, ambient idle, and loop counts (<98 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioTypewriterVector.tsx`: Typewriter reading speeds and directional motion path vector options (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioBulkToolbar.tsx`: Multi-element bulk selection, cascade waterfall stagger (+0.2s), and bulk timings (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ElementStudioTimelineCard.tsx`: Timeline card chip with checkbox, step badge, reorder arrows, and dual export badges (<60 lines).
+- `src/features/step6/utils/animationSequenceUtils.ts`: Pure step reordering array utility (<25 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ScratchBlockCard.tsx`: Draggable Scratch-styled visual puzzle block with color coding, drag handle, and export tags (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/ScratchTimelineTrack.tsx`: Visual Scratch-style block sequence track supporting hold-and-drag reordering (<80 lines).
+- `src/features/step6/hooks/usePreviewElementTransform.ts`: Custom hook implementing authentic 8-way directional resize via computeResizeBounds and drag translation (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/PreviewElementItem.tsx`: Visual preview item using authentic GoogleSlidesBoundingBox with 8 square handles, rotation stem, and image rendering (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/scratch/scratchTypes.ts`: Type definitions and constant arrays for ScratchJr animation palette blocks (<35 lines).
+- `src/features/step6/components/toolbar/tabs/anim/scratch/ScratchPaletteBlock.tsx`: Draggable palette block component (<35 lines).
+- `src/features/step6/components/toolbar/tabs/anim/scratch/ScratchScriptStrip.tsx`: Chained action script strip with snap-in slots for Entrances, Animations, and Exits without Start flag (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/scratch/ScratchStudioWorkspace.tsx`: ScratchJr timeline workspace featuring zoom controls, reset sequence, row connectors, and multi-select (<90 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/types.ts`: TypeScript configurations for card catalogues, categories, and bulk timing modes (<45 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/AnimationEffectCard.tsx`: Rich card component with name, description, group badge, and quick hover preview (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/AnimationCardGrid.tsx`: Card-based animation catalogue replacing dropdowns/pills with rich cards (<60 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/AnimationTimingModal.tsx`: Card-based modal prompting 'Together', 'Successively', or 'On Click' for multi-element selections (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineZoomControls.tsx`: Smooth zoom-in, zoom-out, and 100% reset controls for long animation sequences (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineSequenceHeader.tsx`: Header with multi-selection counter, Reset Sequence, Bulk Clear, and Zoom controls (<70 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineSlotItem.tsx`: Interactive Entrance, Animation, and Exit slot boxes with trigger badges, repeat counts, and hover test (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineRowConnectors.tsx`: Visual connection lines indicating whether elements trigger Together, Successively, or On Click (<50 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineRowReorder.tsx`: Up and down sequence shifting buttons for manual timeline reordering (<45 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/TimelineElementRow.tsx`: Timeline row component uniting letter badge, slot boxes, reorder buttons, and connectors (<80 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/useTimelineMultiSelect.ts`: Multi-selection hook supporting Shift-range and Ctrl-toggle selection (<55 lines).
+- `src/features/step6/components/toolbar/tabs/anim/studio/useStudioAnimationState.ts`: Studio state manager coordinating timing modal, multi-element patch, and active category (<85 lines).
+- `src/features/step6/components/canvas/useTimelineRailOperations.ts`: Extracted rule shifting and removal operations hook for canvas timeline (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/hud/hudTypes.ts`: Compact HUD catalog options and constants for fast contextual editing (<35 lines).
+- `src/features/step6/components/toolbar/tabs/anim/hud/HudEffectGrid.tsx`: Question 1 compact effect style card selector (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/hud/HudTriggerSelector.tsx`: Question 2 trigger timing card selector (On Click, Together, In Succession) (<65 lines).
+- `src/features/step6/components/toolbar/tabs/anim/hud/HudPacingSelector.tsx`: Question 3 speed and pacing chip selector (Snappy, Smooth, Gentle) (<75 lines).
+- `src/features/step6/components/toolbar/tabs/anim/hud/TimelineHudPopover.tsx`: Direct Timeline HUD Popover floating contextual inspector (<85 lines).
+- `src/features/step6/components/toolbar/tabs/anim/hud/useTimelineHud.ts`: Contextual popover state and atomic multi-element update hook (<70 lines).
+- `src/features/step6/index.ts`: Barrel export for Step 6 types, constants, hooks, services, and components (<20 lines).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

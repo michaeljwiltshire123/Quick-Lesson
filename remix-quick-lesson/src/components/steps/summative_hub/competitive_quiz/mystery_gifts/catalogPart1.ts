@@ -1,0 +1,28 @@
+import { MysteryGiftDefinition } from '../types/mysteryGiftTypes';
+
+export const GIFTS_PART_1: MysteryGiftDefinition[] = [
+  { id: 'g_shield', type: 'shield', name: 'Aegis Shield', category: 'defensive', description: 'Blocks the next incoming attack', iconName: 'Shield', rarity: 'common' },
+  { id: 'g_mega_shield', type: 'mega_shield', name: 'Mega Shield', category: 'defensive', description: 'Blocks the next 5 incoming attacks', iconName: 'ShieldCheck', rarity: 'epic' },
+  { id: 'g_mirror', type: 'mirror_shield', name: 'Mirror Shield', category: 'defensive', description: 'Reflects the next attack back at the sender', iconName: 'Repeat', rarity: 'rare' },
+  { id: 'g_cloak', type: 'cloak_invisibility', name: 'Cloak of Invisibility', category: 'defensive', description: 'Immune to all targeted attacks for 2 questions', iconName: 'EyeOff', rarity: 'epic' },
+  { id: 'g_vault', type: 'bank_vault', name: 'Bank Vault', category: 'defensive', description: 'Protects 10% of total points permanently from theft', iconName: 'Lock', rarity: 'rare' },
+  { id: 'g_cleanse', type: 'cleanse', name: 'Cleanse', category: 'defensive', description: 'Instantly removes all negative debuffs and curses', iconName: 'Sparkles', rarity: 'common' },
+  { id: 'g_fortress', type: 'fortress_mode', name: 'Fortress Mode', category: 'defensive', description: 'Halves points earned next turn, but grants 100% defense', iconName: 'Castle', rarity: 'rare' },
+  { id: 'g_rebound', type: 'rebound', name: 'Rebound', category: 'defensive', description: 'If attacked, the attacker receives double the penalty', iconName: 'Undo2', rarity: 'epic' },
+  { id: 'g_dummy', type: 'dummy_decoy', name: 'Dummy Decoy', category: 'defensive', description: 'Absorbs the next point-stealing trap or attack', iconName: 'UserCheck', rarity: 'common' },
+  { id: 'g_sanctuary', type: 'sanctuary', name: 'Sanctuary', category: 'defensive', description: 'Creates a safety zone where nobody can target you for 1 round', iconName: 'Crosshair', rarity: 'rare' },
+  { id: 'g_bribe', type: 'bribe_guard', name: 'Bribe the Guard', category: 'defensive', description: 'Cancels penalty if you answer incorrectly on the next question', iconName: 'Coins', rarity: 'common' },
+  { id: 'g_point_thief', type: 'point_thief', name: 'Point Thief', category: 'sabotage', description: 'Steals 100 points from chosen target', iconName: 'DollarSign', rarity: 'common' },
+  { id: 'g_hit_leader', type: 'hit_leader', name: 'Blue Lightning', category: 'sabotage', description: 'Hits the #1 player and steals 15% of their points', iconName: 'Zap', rarity: 'epic' },
+  { id: 'g_steal_ahead', type: 'steal_ahead', name: 'Slipstream Siphon', category: 'sabotage', description: 'Steals 200 points from the player directly ahead of you', iconName: 'TrendingUp', rarity: 'rare' },
+  { id: 'g_sabotage_timer', type: 'sabotage_timer', name: 'Sabotage Timer', category: 'sabotage', description: 'Doubles the speed required for top player to answer', iconName: 'Clock', rarity: 'rare' },
+  { id: 'g_glitch_ray', type: 'glitch_ray', name: 'Glitch Ray', category: 'sabotage', description: 'Randomly scrambles two buttons on the leader’s screen', iconName: 'Shuffle', rarity: 'common' },
+  { id: 'g_fog_of_war', type: 'fog_of_war', name: 'Fog of War', category: 'sabotage', description: 'Blurs question text for all players with higher score than you', iconName: 'CloudFog', rarity: 'rare' },
+  { id: 'g_weight_vest', type: 'weight_vest', name: 'Weight Vest', category: 'sabotage', description: 'Forces a 2-second lock-out on the 3 fastest players', iconName: 'Anchor', rarity: 'rare' },
+  { id: 'g_bounty_hunter', type: 'bounty_hunter', name: 'Bounty Hunter', category: 'sabotage', description: 'Mark a player; if they err next, you collect a 150 pt bounty', iconName: 'Target', rarity: 'rare' },
+  { id: 'g_tax_collector', type: 'tax_collector', name: 'Tax Collector', category: 'sabotage', description: 'Takes 15 points from every player below you on leaderboard', iconName: 'Receipt', rarity: 'epic' },
+  { id: 'g_poison_apple', type: 'poison_apple', name: 'Poison Apple', category: 'sabotage', description: 'Plants a trap on an answer choice; whoever clicks loses points', iconName: 'Skull', rarity: 'rare' },
+  { id: 'g_heist', type: 'heist', name: 'Heist', category: 'sabotage', description: 'Choose a player; steal half the points they gain on the next question', iconName: 'Key', rarity: 'rare' },
+  { id: 'g_static_shock', type: 'static_shock', name: 'Static Shock', category: 'chaos', description: 'Jiggles and distorts the video/layout on target’s screen', iconName: 'Activity', rarity: 'common' },
+  { id: 'g_shrink_shake', type: 'shrink_shake', name: 'Seismic Rumble', category: 'chaos', description: 'Shrinks and shakes the screen for all opponents next question', iconName: 'Maximize2', rarity: 'rare' },
+];

@@ -1,0 +1,8 @@
+{
+  "name": "Remix Quick Lesson",
+  "description": "Streamlined UK curriculum lesson planner utilising backward design principles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
